@@ -10,9 +10,9 @@ iasolb.github.io/
 ├── interests.html      ← Second page (required)
 ├── style.css           ← Shared stylesheet (required)
 │
-└── images/             ← Create this folder and add your images
-    ├── profile.jpg           (used in index.html hero)
-    ├── highlight1.jpg        (used in index.html cards)
+└── resources/             ← Create this folder and add your images
+    ├── ProfilePic.jpg           (used in index.html hero)
+    ├── jump.jpg        (used in index.html cards)
     ├── highlight2.jpg
     ├── highlight3.jpg
     ├── interest-main.jpg     (used in interests.html)
