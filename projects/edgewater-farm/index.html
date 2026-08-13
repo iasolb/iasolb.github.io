@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edgewater Farm database and field app &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="Migrating a working farm's legacy Access database to MySQL and building a mobile-first progressive web app on FastAPI, SQLAlchemy, and HTMX so the crew can log planting, harvest, and sales from the field."
+    />
+    <link
+      rel="canonical"
+      href="https://iansolberg.us/projects/edgewater-farm/"
+    />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="Edgewater Farm database and field app" />
+    <meta
+      property="og:description"
+      content="Decades of farm records out of a legacy Access database and into MySQL, with a mobile-first web app the crew can actually use during a harvest."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/edgewater-farm/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/writing/">Writing</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Product &middot; Working farm</p>
+          <h1 class="page-title">Edgewater Farm database and field app</h1>
+          <p class="lede muted">
+            Migrating a farm's operational records from a legacy Microsoft Access
+            database to MySQL, with a progressive web app providing separate
+            field and office interfaces over the new schema.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Sole developer, from schema to interface</dd>
+          </div>
+          <div>
+            <dt>Users</dt>
+            <dd>Farm crew in the field, office staff at a desk</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>MySQL, FastAPI, SQLAlchemy, HTMX, Tailwind</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot building">In active development</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="problem-heading">
+        <div class="section-label">
+          <h2 id="problem-heading">The problem</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The farm ran on a Microsoft Access database that had accumulated years
+            of real operational history: what was planted where, what came out of
+            it, what was sold. All of it was reachable only by
+            opening a database file on one office computer, through forms designed
+            for a keyboard and mouse.
+          </p>
+          <p>
+            The crew with the most direct knowledge of operations had the least
+            ability to record it. Data entry happened later, from written notes,
+            by someone else, which introduced errors.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="built-heading">
+        <div class="section-label">
+          <h2 id="built-heading">What I built</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Two parts. First, the migration: a normalized MySQL schema that preserves
+            the meaning of the Access database rather than only the contents of
+            its tables, since the legacy schema encoded operational rules in
+            places a row-by-row copy would drop.
+          </p>
+          <p>
+            Second, a progressive web app over that schema, built with FastAPI and
+            SQLAlchemy on the server and HTMX with Tailwind on the front end. HTMX
+            was chosen because the required interactions are form submissions and
+            partial page updates, which do not justify a JavaScript framework and
+            its build pipeline.
+          </p>
+
+          <h3>Two audiences, two different interfaces</h3>
+          <p>
+            The application has two distinct user groups, and separate interfaces for
+            each.
+          </p>
+          <ul>
+            <li>
+              <strong>Capture flows for the crew are simple and mobile-first.</strong>
+              Planting, harvesting, and selling are three separate paths, each
+              designed to be completed on a phone, outdoors, in as few taps as
+              possible. Any field that can be inferred is inferred.
+            </li>
+            <li>
+              <strong>Admin flows are dense and desktop-oriented.</strong> The
+              office needs to see many records at once, correct mistakes, and run
+              queries, which a phone-optimized layout would have made harder.
+            </li>
+          </ul>
+          <p>
+            The two share a database and little else.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="next-heading">
+        <div class="section-label">
+          <h2 id="next-heading">Where it stands</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            In active development, with a test suite covering the data layer and
+            the capture flows, working toward cutover from the Access database.
+            The repository is private, since it is a real business's operational
+            data.
+          </p>
+          <p>
+            <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="/writing/">Writing</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

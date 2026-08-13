@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Financial Edge Connector &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="A small Flask app giving an independent school's faculty a Google-authenticated, readable view of their budget data from the school's accounting platform API, deliberately built light enough for the school's own IT team to run."
+    />
+    <link
+      rel="canonical"
+      href="https://iansolberg.us/projects/financial-edge-connector/"
+    />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="Financial Edge Connector" />
+    <meta
+      property="og:description"
+      content="Faculty at an independent school get a readable view of their own budgets, in an app light enough for the school's IT team to maintain."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/financial-edge-connector/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/writing/">Writing</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Client work &middot; Independent school</p>
+          <h1 class="page-title">Financial Edge Connector</h1>
+          <p class="lede muted">
+            A small authenticated web app that lets a school's faculty see their
+            own budget data, pulled from the accounting platform they were never
+            given access to. Built deliberately lightweight, because the people
+            who have to run it are not software engineers.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Co-developer, with Stephen Solberg</dd>
+          </div>
+          <div>
+            <dt>Users</dt>
+            <dd>Faculty and staff at an independent school</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Flask, Google auth, Blackbaud Sky API, Oracle Cloud</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot">Deployed</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="problem-heading">
+        <div class="section-label">
+          <h2 id="problem-heading">The problem</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The finance platform held the budget numbers, but its interface assumes a
+            user in the finance office, so a department head checking a remaining
+            balance would need training in an enterprise accounting system.
+          </p>
+          <p>
+            In practice the workflow was email: a request to the business office, a
+            manually run report, and an answer that arrived days later and was
+            already out of date.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="built-heading">
+        <div class="section-label">
+          <h2 id="built-heading">What we built</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            A Flask app that authenticates faculty with their existing Google
+            accounts, pulls budget data from the school's accounting platform
+            through the Blackbaud Sky API, and shows each person a view scoped to
+            what is actually theirs. No new password, no training, no report
+            request.
+          </p>
+          <p>
+            It runs on a free-tier Oracle Cloud virtual machine.
+          </p>
+
+          <h3>Design constraints</h3>
+          <p>
+            The school's own IT team operates the application, alongside their other
+            responsibilities, which drove the technical decisions:
+          </p>
+          <ul>
+            <li>
+              <strong>Small on purpose.</strong> This is not a product and was
+              never designed to become one. Flask, few dependencies, an
+              architecture someone can read in an afternoon.
+            </li>
+            <li>
+              <strong>Authentication they already have.</strong> Google auth means
+              no user table to manage, no password resets, and offboarding happens
+              automatically when the school disables an account.
+            </li>
+            <li>
+              <strong>Read-only against the source of truth.</strong> The
+              accounting platform stays authoritative. The app is a window, so it
+              cannot corrupt anything, which is what makes it safe to hand over.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="next-heading">
+        <div class="section-label">
+          <h2 id="next-heading">Where it stands</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Deployed and running. Built with Stephen Solberg under the
+            TallPoppies name.
+          </p>
+          <p>
+            <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="/writing/">Writing</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

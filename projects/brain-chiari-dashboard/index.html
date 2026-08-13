@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chiari morphometrics dashboard &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="An interactive HoloViz Panel dashboard over patient morphometric data for Northeastern's BRAIN project, containerized with Docker and deployed so the research team can explore the data themselves."
+    />
+    <link
+      rel="canonical"
+      href="https://iansolberg.us/projects/brain-chiari-dashboard/"
+    />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="Chiari morphometrics dashboard" />
+    <meta
+      property="og:description"
+      content="An interactive dashboard over patient morphometric measurements, so researchers can explore the data instead of requesting one-off plots."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/brain-chiari-dashboard/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/writing/">Writing</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Research &middot; Loth Lab, Northeastern</p>
+          <h1 class="page-title">Chiari morphometrics dashboard</h1>
+          <p class="lede muted">
+            An interactive dashboard over patient morphometric data for the BRAIN
+            project, so the research team can filter and plot the measurements
+            directly rather than requesting one-off analyses.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Undergraduate researcher, sole developer</dd>
+          </div>
+          <div>
+            <dt>Context</dt>
+            <dd>Loth Lab, Northeastern University</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Python, HoloViz Panel, Docker</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot">Deployed and in use</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="problem-heading">
+        <div class="section-label">
+          <h2 id="problem-heading">The problem</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The BRAIN project (Biomechanical Report: Analysis and Imaging at
+            Northeastern) studies Chiari malformation, a condition where brain
+            tissue extends into the spinal canal. The research depends on
+            morphometric measurements taken from patient imaging: a set of
+            distances, areas, and angles describing the anatomy of each case.
+          </p>
+          <p>
+            The data was not accessible to the team without writing code. Looking at
+            a relationship between two measurements, or filtering to a subset of
+            cases, required a one-off script, so each question meant a round trip
+            through whoever was available to write it.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="built-heading">
+        <div class="section-label">
+          <h2 id="built-heading">What I built</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            An interactive dashboard over the morphometric dataset, built with
+            HoloViz Panel so the whole thing stays in Python and stays close to
+            the analysis code it grew out of. Researchers can select measurements,
+            filter the cohort, and see distributions and relationships update
+            immediately, without writing anything.
+          </p>
+          <p>
+            Deployment was as important as the interface. It runs as a Docker
+            container on Hugging Face Spaces, which means the lab gets a URL
+            rather than an install: no Python environment to set up, no
+            dependency drift, and no reliance on my laptop being awake. The users are clinicians and
+            students rather than engineers, so removing the setup step was
+            necessary for the tool to be used.
+          </p>
+
+          <h3>Design decisions</h3>
+          <ul>
+            <li>
+              <strong>Panel over a JavaScript front end.</strong> The audience is
+              researchers who may need to extend it. Keeping the dashboard in the
+              same language as the analysis means the next student can modify it.
+            </li>
+            <li>
+              <strong>Containerized from the start.</strong> Reproducibility matters in a
+              research context, and a container makes the environment explicit.
+            </li>
+            <li>
+              <strong>Exploration rather than reporting.</strong> The goal was not a
+              fixed set of figures but the ability to ask a new question without
+              writing code.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="next-heading">
+        <div class="section-label">
+          <h2 id="next-heading">Where it stands</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Deployed and in use by the lab, continuing alongside the study. The
+            related problem it surfaced, that the lab's data infrastructure was
+            not designed for the case volume ahead, is work I am now looking at
+            at the database level.
+          </p>
+          <p>
+            <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="/writing/">Writing</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

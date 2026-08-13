@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="IS">
+  <rect width="64" height="64" rx="14" fill="#0d1117"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#30363d" stroke-width="3"/>
+  <text x="32" y="43" text-anchor="middle"
+        font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+        font-size="30" font-weight="600" fill="#58a6ff" letter-spacing="1">IS</text>
+</svg>

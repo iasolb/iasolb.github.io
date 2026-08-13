@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Work &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="Projects by Ian Solberg: published econometric work on debt regimes and inflation, a Chiari research dashboard, a farm database and field app, an independent school's budget viewer, and open-source wrappers over federal data APIs."
+    />
+    <link rel="canonical" href="https://iansolberg.us/projects/" />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="Work &middot; Ian Solberg" />
+    <meta
+      property="og:description"
+      content="Research dashboards, software for organizations without a software team, and human-readable wrappers over public data APIs."
+    />
+    <meta property="og:url" content="https://iansolberg.us/projects/" />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/writing/">Writing</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <div class="prose">
+          <p class="eyebrow">Work</p>
+          <h1 class="page-title">Things I have built</h1>
+          <p class="lede muted">
+            Research tooling, internal applications for organizations without dedicated
+            software teams, and open-source Python libraries for public data.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="research-heading">
+        <div class="section-label">
+          <h2 id="research-heading">Research</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="/projects/debt-regime-inflation/">
+            <span class="card-kicker">Published &middot; Applied econometrics</span>
+            <h3>The 100% threshold</h3>
+            <p>
+              Money supply growth does not raise consumer prices below 100% debt
+              to GDP, and does above it. Regime-conditional regressions on 1,891
+              weekly FRED observations, a Fed reaction function, Monte Carlo
+              simulation, and 17 robustness checks.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Econometrics</li>
+                <li>statsmodels</li>
+                <li>Monte Carlo</li>
+                <li>FRED</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/brain-chiari-dashboard/">
+            <span class="card-kicker">Loth Lab &middot; Northeastern</span>
+            <h3>Chiari morphometrics dashboard</h3>
+            <p>
+              An interactive dashboard over patient morphometric measurements,
+              containerized and deployed so the research team can filter and plot
+              the data directly.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Python</li>
+                <li>HoloViz Panel</li>
+                <li>Docker</li>
+                <li>Hugging Face Spaces</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/research-framework/">
+            <span class="card-kicker">Personal research</span>
+            <h3>ResearchFramework</h3>
+            <p>
+              A Monte Carlo and statistical modeling framework built on those loaders,
+              used for work on wealth concentration.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Monte Carlo</li>
+                <li>NumPy</li>
+                <li>Economics</li>
+              </ul>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="applications-heading">
+        <div class="section-label">
+          <h2 id="applications-heading">Applications</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="/projects/edgewater-farm/">
+            <span class="card-kicker">Working farm</span>
+            <h3>Edgewater Farm database and field app</h3>
+            <p>
+              A legacy Access database migrated to MySQL, plus a progressive web app
+              with two interfaces: simple capture flows for the crew, denser
+              admin screens for the office.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>MySQL</li>
+                <li>FastAPI</li>
+                <li>SQLAlchemy</li>
+                <li>HTMX</li>
+                <li>Tailwind</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/financial-edge-connector/">
+            <span class="card-kicker">Independent school</span>
+            <h3>Financial Edge Connector</h3>
+            <p>
+              Faculty get a Google-authenticated, readable view of their own
+              budget lines, pulled from the school's accounting platform through
+              its API.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Flask</li>
+                <li>OAuth</li>
+                <li>REST</li>
+                <li>Oracle Cloud</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/solberg-mainframe/">
+            <span class="card-kicker">Early stage</span>
+            <h3>Solberg Mainframe</h3>
+            <p>
+              A household inventory tracker, plus a catalog and project tracker for a
+              large LEGO collection.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Django</li>
+                <li>Python</li>
+              </ul>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="tools-heading">
+        <div class="section-label">
+          <h2 id="tools-heading">Open-source tools</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="/projects/data-loaders/">
+            <span class="card-kicker">Python libraries</span>
+            <h3>FRED_Loader and Census_Loader</h3>
+            <p>
+              Readable naming layers over two federal data APIs, with discovery
+              helpers for finding a series interactively rather than looking up
+              its code in documentation.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Python</li>
+                <li>API design</li>
+                <li>pandas</li>
+              </ul>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="more-heading">
+        <div class="section-label">
+          <h2 id="more-heading">Elsewhere</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Additional code and smaller projects are on
+            <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="/writing/">Writing</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

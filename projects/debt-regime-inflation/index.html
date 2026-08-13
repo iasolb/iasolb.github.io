@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The 100% threshold &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="A regime-conditional study of US inflation: below 100% debt to GDP, money supply growth does not raise consumer prices, and above it, it does. Weekly FRED data from 1990 to 2026, with a Fed reaction function, Monte Carlo simulation, and 17 robustness checks."
+    />
+    <link
+      rel="canonical"
+      href="https://iansolberg.us/projects/debt-regime-inflation/"
+    />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="The 100% threshold" />
+    <meta
+      property="og:description"
+      content="How government debt changes the link between money supply and inflation. Regime-conditional regressions on weekly FRED data, 1990 to 2026."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/debt-regime-inflation/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Applied econometrics &middot; Published research</p>
+          <h1 class="page-title">The 100% threshold</h1>
+          <p class="lede muted">
+            How government debt changes the link between money supply and
+            inflation. Below 100% debt to GDP, M2 growth does not raise consumer
+            prices. Above it, it does.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Sole author</dd>
+          </div>
+          <div>
+            <dt>Field</dt>
+            <dd>Monetary policy transmission</dd>
+          </div>
+          <div>
+            <dt>Data</dt>
+            <dd>FRED, 1,891 weekly observations, 1990&ndash;2026</dd>
+          </div>
+          <div>
+            <dt>Methods</dt>
+            <dd>Regime-conditional regression, Monte Carlo, statsmodels</dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="question-heading">
+        <div class="section-label">
+          <h2 id="question-heading">The question</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The textbook link between money supply and inflation has held up
+            badly in recent decades, and the usual response is to argue about
+            whether the relationship exists at all. The question I asked instead
+            was whether it is conditional: whether the fiscal position of the
+            government determines if money growth reaches consumer prices.
+          </p>
+          <p>
+            The candidate condition is federal debt at 100% of GDP, a level the
+            United States crossed around 2013 and now sits well above, at roughly
+            122%. That gives two subsamples of real data rather than a
+            hypothetical, which is what makes the question testable.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="method-heading">
+        <div class="section-label">
+          <h2 id="method-heading">How it was tested</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            1,891 weekly observations from the Federal Reserve Economic Database,
+            January 1990 through March 2026: headline CPI, M2, federal debt,
+            energy prices, unemployment, and inflation expectations from both
+            consumer surveys and TIPS breakevens.
+          </p>
+          <p>
+            The sample is split at 100% debt to GDP and the same specification is
+            estimated separately on each side, with M2 lagged 78 weeks to allow
+            for transmission delay. Alongside the inflation model I estimated a
+            Federal Reserve reaction function, to see whether the Fed's own
+            behavior changes across the same boundary, and ran Monte Carlo
+            simulations with correlated input draws to price a monetary shock
+            under each regime.
+          </p>
+          <p>
+            A single split invites the objection that the result is an artifact of
+            where the line was drawn, so the analysis carries 17 robustness checks
+            across alternative specifications in a separate notebook.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="findings-heading">
+        <div class="section-label">
+          <h2 id="findings-heading">What came out of it</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The M2 coefficient does not weaken across the threshold, it changes
+            sign. In the low-debt regime from 1990 to 2013 it is
+            &minus;0.129, and in the high-debt regime from 2013 to 2026 it is
+            +0.104, both significant at p&nbsp;&lt;&nbsp;0.001.
+          </p>
+          <p>
+            Inflation expectations pass through to prices 4.6 times more strongly
+            once debt is above the threshold, 1.623 against 0.354. Expectations
+            are the channel that changes most, which is the part with the clearest
+            implication for policy: credibility does more work under high debt
+            than it does under low debt.
+          </p>
+          <p>
+            The reaction function tells a matching story from the Fed's side. A
+            Taylor Rule explains 4.5% of the variation in its decisions in the
+            low-debt period and 51.1% in the high-debt period, with the Taylor gap
+            coefficient five times larger and the mandate-tension coefficient
+            roughly doubled.
+          </p>
+          <p>
+            Simulating a 20% surge in M2 produces 0.54% inflation under the
+            low-debt regime and 4.26% under the high-debt regime: a gap of 3.72
+            percentage points from the same shock, which is the practical size of
+            the effect.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="build-heading">
+        <div class="section-label">
+          <h2 id="build-heading">How it is built</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Two Jupyter notebooks, one for the passthrough models and one for the
+            robustness checks, over a small Python layer that handles the data:
+            pandas, NumPy, statsmodels, scipy, and matplotlib, with the FRED
+            fetching and scoring factored out into modules so the notebooks stay
+            about the economics.
+          </p>
+          <p>
+            It reuses my own tooling rather than restating it. The series come in
+            through the same loader work described in
+            <a href="/projects/data-loaders/">FRED and Census loaders</a>, and
+            <a href="/projects/research-framework/">ResearchFramework</a> is
+            vendored in for the simulation machinery.
+          </p>
+          <p>
+            <a
+              href="https://iasolb.substack.com/p/the-100-threshold-how-government"
+              rel="noopener"
+              >Read the full write-up on Substack</a
+            >
+            &middot;
+            <a href="https://github.com/iasolb/FRED_DebtAnalysis" rel="noopener"
+              >Code and notebooks on GitHub</a
+            >
+            &middot; <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

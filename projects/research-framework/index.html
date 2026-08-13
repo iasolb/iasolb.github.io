@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ResearchFramework &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="A Monte Carlo and statistical modeling framework built on top of my federal data loaders, aimed at questions about wealth concentration and how it moves through consumption, investment, and monetary policy."
+    />
+    <link
+      rel="canonical"
+      href="https://iansolberg.us/projects/research-framework/"
+    />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="ResearchFramework" />
+    <meta
+      property="og:description"
+      content="A Monte Carlo and statistical modeling layer over public economic data, built for questions about wealth concentration."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/research-framework/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/writing/">Writing</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Research tooling &middot; Personal</p>
+          <h1 class="page-title">ResearchFramework</h1>
+          <p class="lede muted">
+            A Monte Carlo and statistical modeling framework built on top of my data
+            loaders, used for work on wealth concentration and monetary policy
+            transmission.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Author</dd>
+          </div>
+          <div>
+            <dt>Subject</dt>
+            <dd>Distributional macroeconomics</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Python, NumPy, Monte Carlo methods</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot building">Ongoing, mid-refactor</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="why-heading">
+        <div class="section-label">
+          <h2 id="why-heading">Why it exists</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            The questions I work on are how wealth concentration affects consumption
+            and investment, and how it changes the transmission of monetary
+            policy. These are distributional questions, where aggregate series
+            obscure the variation of interest.
+          </p>
+          <p>
+            Investigating them requires repeated simulation over real data with
+            explicit uncertainty. In practice each attempt began with the same
+            setup work: fetching series, aligning frequencies, and reconciling
+            vintages.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="built-heading">
+        <div class="section-label">
+          <h2 id="built-heading">What it does</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            It is the third layer of a three-part stack.
+            <a href="/projects/data-loaders/">FRED_Loader and Census_Loader</a>
+            handle access, turning federal APIs into readable requests.
+            ResearchFramework sits above them and handles the modeling: Monte
+            Carlo simulation and statistical machinery that takes the loaded data
+            as its input.
+          </p>
+          <p>
+            Keeping access separate from modeling keeps the loaders generally useful
+            and keeps the framework focused on the statistics rather than
+            accumulating fetching code for each new source.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="next-heading">
+        <div class="section-label">
+          <h2 id="next-heading">Where it stands</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Ongoing personal research, currently mid-refactor: it grew alongside the
+            loaders and is being tightened as their conventions settle.
+          </p>
+          <p>
+            The published work it supports is
+            <a href="/projects/debt-regime-inflation/">The 100% threshold</a>,
+            which vendors this framework in for its simulation machinery.
+          </p>
+          <p>
+            <a href="https://github.com/iasolb/ResearchFramework" rel="noopener"
+              >ResearchFramework on GitHub</a
+            >
+            &middot; <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="/writing/">Writing</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
