@@ -1,157 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ian Solberg — Personal Site</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ian Solberg</title>
+    <meta
+      name="description"
+      content="Ian Solberg, data science and economics at Northeastern University, class of 2027. Marketing analyst co-op at Wayfair and undergraduate researcher in the Loth Lab. Data infrastructure, internal applications, and open-source Python libraries."
+    />
+    <link rel="canonical" href="https://iansolberg.us/" />
+    <meta name="theme-color" content="#0d1117" />
 
-  <!-- ==================== NAVIGATION ==================== -->
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Ian Solberg</a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Professional</a></li>
-        <li><a href="interests.html">Interests</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="Ian Solberg" />
+    <meta
+      property="og:description"
+      content="Data science and economics at Northeastern University. Marketing analyst co-op at Wayfair, undergraduate researcher in the Loth Lab."
+    />
+    <meta property="og:url" content="https://iansolberg.us/" />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="page">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <div class="hero-text">
-        <p class="section-label">Welcome</p>
-        <h1>Hello, I'm Ian</h1>
-        <p class="subtitle">Ian Solberg · B.A. Data Science & Economics Exp. Grad 2027 · Northeastern University</p>
-        <p>
-          Row Column Enthusiast
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap">
+        <p class="eyebrow">Northeastern University &middot; Boston, MA</p>
+        <h1>Ian Solberg</h1>
+        <p class="tagline">
+          Helping people interact with the data they create, in the way they want
+          to.
         </p>
+        <p class="lede">
+          Data science and economics, class of 2027. Currently a
+          <strong>marketing analyst co-op at Wayfair</strong>, working in
+          BigQuery on data validation and analysis tooling, and an
+          <strong>undergraduate researcher in Northeastern's Loth Lab</strong>,
+          where I built and deployed the BRAIN project's interactive dashboard
+          over patient morphometric data. Outside of that I build database
+          migrations, web applications, and Python libraries that wrap public
+          data APIs.
+        </p>
+        <div class="contact-row">
+          <a class="btn btn-primary" href="/assets/resume/ian-solberg-resume.pdf"
+            >Resume (PDF)</a
+          >
+          <a class="btn" href="/projects/">Projects</a>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="work-heading">
+        <div class="section-label">
+          <h2 id="work-heading">Selected work</h2>
+          <span class="rule"></span>
+          <a href="/projects/">All projects</a>
+        </div>
+
+        <div class="card-grid">
+          <a class="card" href="/projects/brain-chiari-dashboard/">
+            <span class="card-kicker">Research &middot; Loth Lab</span>
+            <h3>Chiari morphometrics dashboard</h3>
+            <p>
+              An interactive dashboard over patient morphometric measurements for
+              the BRAIN project, containerized and deployed so the research team
+              can filter and plot the data directly.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Python</li>
+                <li>HoloViz Panel</li>
+                <li>Docker</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/edgewater-farm/">
+            <span class="card-kicker">Product &middot; Working farm</span>
+            <h3>Edgewater Farm database and field app</h3>
+            <p>
+              A legacy Microsoft Access database migrated to MySQL, with a
+              mobile-first progressive web app for logging planting, harvest, and
+              sales from the field.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>MySQL</li>
+                <li>FastAPI</li>
+                <li>SQLAlchemy</li>
+                <li>HTMX</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/data-loaders/">
+            <span class="card-kicker">Open source</span>
+            <h3>FRED and Census loaders</h3>
+            <p>
+              Two Python libraries providing a readable naming layer over federal
+              data APIs, with discovery helpers and rate-limit-aware batching.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Python</li>
+                <li>API design</li>
+                <li>pandas</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/research-framework/">
+            <span class="card-kicker">Research tooling</span>
+            <h3>ResearchFramework</h3>
+            <p>
+              A Monte Carlo and statistical modeling framework built on those
+              loaders, used for work on wealth concentration and monetary policy
+              transmission.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Monte Carlo</li>
+                <li>NumPy</li>
+                <li>Economics</li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card" href="/projects/financial-edge-connector/">
+            <span class="card-kicker">Client work</span>
+            <h3>Financial Edge Connector</h3>
+            <p>
+              A Flask application giving an independent school's faculty a
+              Google-authenticated view of their budget data through the
+              Blackbaud Sky API.
+            </p>
+            <div class="card-foot">
+              <ul class="tags">
+                <li>Flask</li>
+                <li>OAuth</li>
+                <li>REST</li>
+              </ul>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="now-heading">
+        <div class="section-label">
+          <h2 id="now-heading">Current</h2>
+          <span class="rule"></span>
+        </div>
+
+        <ul class="now-list">
+          <li>
+            <span class="when">Co-op</span>
+            <span class="what">
+              <strong>Marketing Analyst, Wayfair</strong>
+              Analysis and data validation in BigQuery, building reusable
+              cleaners and analysis scripts. Returning for a second co-op term in
+              fall 2026.
+            </span>
+          </li>
+          <li>
+            <span class="when">Research</span>
+            <span class="what">
+              <strong>Loth Lab, Northeastern University</strong>
+              Undergraduate researcher on the BRAIN project, studying Chiari
+              malformation through imaging and morphometric analysis.
+            </span>
+          </li>
+          <li>
+            <span class="when">Building</span>
+            <span class="what">
+              <strong>Edgewater Farm database and field app</strong>
+              An Access to MySQL migration and a progressive web app for farm
+              operations, in active development.
+            </span>
+          </li>
+          <li>
+            <span class="when">Interests</span>
+            <span class="what">
+              <strong>Distributional macroeconomics</strong>
+              How wealth concentration affects consumption, investment, and
+              monetary policy transmission. API development and automation.
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section wrap" aria-labelledby="contact-heading">
+        <div class="section-label">
+          <h2 id="contact-heading">Contact</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>Email is the best way to reach me.</p>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <span class="label">Business</span>
+            <a href="mailto:ian@solbergmail.com">ian@solbergmail.com</a>
+          </li>
+          <li>
+            <span class="label">Personal</span>
+            <a href="mailto:ianspraguesolberg@gmail.com"
+              >ianspraguesolberg@gmail.com</a
+            >
+          </li>
+          <li>
+            <span class="label">School</span>
+            <a href="mailto:solberg.i@northeastern.edu"
+              >solberg.i@northeastern.edu</a
+            >
+          </li>
+        </ul>
+        <div class="contact-row">
+          <a
+            class="btn"
+            href="https://www.linkedin.com/in/iansolberg"
+            rel="me noopener"
+            >LinkedIn</a
+          >
+          <a class="btn" href="https://github.com/iasolb" rel="me noopener"
+            >GitHub</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
       </div>
-      <!-- Replace src with your own photo -->
-      <img
-        class="hero-img"
-        src="resources/ProfilePic.jpg"
-        alt=""
-      />
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="section">
-      <p class="section-label">About Me</p>
-      <h2>A Little About Myself</h2>
-
-      <!--
-        REQUIREMENT: At least 200 words in this introduction.
-        Replace the placeholder paragraphs below with your own text.
-      -->
-      <p>
-        I grew up in New Hampshire, where I lived in Bridgewater, Holderness, and most recently, Hanover. 
-        In high school, I was very into music as well as sports - I ran track and played football as well as 
-        singing in the show choir and leading the male a capella group. In college, I joined the Northeastern
-        track team as a high jumper and helped contribute as a scorer to two conference championships. Academically,
-        Northeastern has allowed me the opportunity to explore the options to available to me within the city, and with the amount
-        of talent around, there is never a shortage.
-      </p>
-      <p>
-        What I'm most excited about right now is the economics half of my degree catching up to the data science half. Most of my work so far has been in research computing or small-scale applied contexts, and I'm genuinely curious about what these skills look like when the stakes are larger and the decisions are business ones. I'm currently seeking co-ops for the Fall '26 cycle (July through December 2026), and the projects I find most interesting are the ones where better data infrastructure leads directly to better decisions, whether in supply chain, finance, operations, or wherever that logic applies.
-      </p>
-    </section>
-
-    <!-- QUICK HIGHLIGHTS (optional visual break) -->
-    <section class="section">
-      <p class="section-label">Highlights</p>
-      <h2>What I'm Up To</h2>
-      <div class="card-grid">
-
-        <div class="card">
-          <!-- Replace with a relevant image -->
-          <img src="resources/northeastern.jpg" alt="School" />
-          <div class="card-body">
-            <h3>Academics</h3>
-            <p>3.43 GPA, Deans List. Favorite coursework includes: Advanced Programming with Data, Applied Econometrics, Monetary and Fiscal Policy, and Statistical Machine Learning for Economics</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="resources/dartmouth.jpg" alt="Software Engineering Intern at Dartmouth College's Research Computing Team" />
-          <div class="card-body">
-            <h3>Experience</h3>
-            <p>Worked alongside Dartmouth's Research Computing team as a research software engineering intern.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img src="resources/edgewater.jpg" alt="Edgewater Farm Database Migration" />
-          <div class="card-body">
-            <h3>Projects</h3>
-            <p>Migrated Edgewater Farm’s legacy data from AccessDB to MySQL and developed progressive web app for database interaction.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img src="resources/jump.jpg" alt="Hobby" />
-          <div class="card-body">
-            <h3>Hobby / Interest</h3>
-            <p>In my free time, I love to cook, jump, and produce music!</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section">
-      <p class="section-label">Related Skills &amp; Topics</p>
-      <h2>Things I've Picked Up Along the Way</h2>
-     
-
-      <!-- Tag-pill list (unordered) -->
-      <ul class="tag-list">
-        <li>Python / Pandas, Numpy, viz libraries, ML, etc</li>
-        <li>SQL / MySQL, PostgreSQL</li>
-        <li>Git</li>
-        <li>Data Engineering</li>
-        <li>Data Analytics</li>
-        <li>Statistical Validation</li>
-      </ul>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section class="contact-section" id="contact">
-      <h2>Get In Touch</h2>
-      <p>
-        Have a question, want to collaborate, or just want to say hello?
-        I'd love to hear from you.
-      </p>
-      <div class="contact-links">
-        <!-- Replace with your real email -->
-        <a class="contact-btn" href="mailto:ianspraguesolberg@gmail.com">
-          ✉ Email Me
-        </a>
-        <!-- Replace with your real LinkedIn URL -->
-        <a class="contact-btn" href="https://linkedin.com/in/iansolberg" target="_blank" rel="noopener">
-          LinkedIn
-        </a>
-        <!-- Replace with your real GitHub URL -->
-        <a class="contact-btn" href="https://github.com/iasolb" target="_blank" rel="noopener">
-          GitHub
-        </a>
-        <a class="contact-btn" href="resources/resume.pdf" download="Ian-Solberg_Resume.pdf">
-          ↓ Resume
-        </a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer>
-    <p>&copy; 2026 Ian Solberg. HTML &amp; CSS.</p>
-  </footer>
-
-</body>
+    </footer>
+  </body>
 </html>

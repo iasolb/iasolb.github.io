@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FRED and Census loaders &middot; Ian Solberg</title>
+    <meta
+      name="description"
+      content="Two Python libraries that put a human-readable naming layer over federal data APIs, with discovery helpers and rate-limit-aware batching, so you can ask for what you mean instead of memorizing series codes."
+    />
+    <link rel="canonical" href="https://iansolberg.us/projects/data-loaders/" />
+    <meta name="theme-color" content="#0d1117" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ian Solberg" />
+    <meta property="og:title" content="FRED and Census loaders" />
+    <meta
+      property="og:description"
+      content="Human-readable naming layers over federal data APIs, so you can ask for what you mean instead of memorizing series codes."
+    />
+    <meta
+      property="og:url"
+      content="https://iansolberg.us/projects/data-loaders/"
+    />
+    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">IS</span>
+          Ian Solberg
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="/projects/" aria-current="page">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="detail-head wrap">
+        <a class="back-link" href="/projects/">&larr; All work</a>
+        <div class="prose">
+          <p class="eyebrow">Open source &middot; Python libraries</p>
+          <h1 class="page-title">FRED_Loader and Census_Loader</h1>
+          <p class="lede muted">
+            Two Python libraries providing a readable naming layer over federal data
+            APIs, so a request can name the concept rather than the API's series
+            code.
+          </p>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <dl class="meta-grid">
+          <div>
+            <dt>Role</dt>
+            <dd>Author</dd>
+          </div>
+          <div>
+            <dt>Sources</dt>
+            <dd>Federal Reserve Economic Data, U.S. Census Bureau</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Python, pandas, REST APIs</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot building">Used daily, refactor in progress</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="section wrap" aria-labelledby="problem-heading">
+        <div class="section-label">
+          <h2 id="problem-heading">The problem</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Federal statistical agencies publish extraordinary amounts of data
+            through APIs that were designed around internal identifiers. If you
+            want real median household income, you need to know which series code
+            carries it, which vintage you are getting, and how that code differs
+            from the four similar ones. The knowledge required is
+            specific to the API rather than to the subject matter.
+          </p>
+          <p>
+            That cost is paid by every analyst using the data, and paid again after
+            time away from it, while the underlying request (median household
+            income by state since 2010) is unambiguous.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="built-heading">
+        <div class="section-label">
+          <h2 id="built-heading">What I built</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            A naming layer, plus the things that make a naming layer usable in
+            practice. Both libraries share a deliberate house style, so knowing
+            one means knowing the other:
+          </p>
+          <ul>
+            <li>
+              <strong>Human-readable names over raw codes.</strong> You ask for
+              the concept; the library owns the mapping to whatever the API calls
+              it.
+            </li>
+            <li>
+              <strong>Discovery helpers built for interactive use.</strong>
+              <code>available()</code>, <code>search()</code>, and
+              <code>info()</code> mean you can find what exists from a Jupyter
+              cell instead of alt-tabbing to API documentation.
+            </li>
+            <li>
+              <strong>Rate-limit-aware batching.</strong> Requests are batched
+              explicitly rather than optimistically, because these APIs will
+              throttle you and a library that pretends otherwise fails halfway
+              through a long pull.
+            </li>
+            <li>
+              <strong>Guard patterns over silent failure.</strong> Explicit checks
+              with an early exit and a clear message. An empty frame returned silently ends up
+              in an analysis; an explicit failure does not.
+            </li>
+          </ul>
+          <p>
+            The design goal was that the libraries could be used without learning
+            either my abstractions or the API's.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="next-heading">
+        <div class="section-label">
+          <h2 id="next-heading">Where it stands</h2>
+          <span class="rule"></span>
+        </div>
+        <div class="prose">
+          <p>
+            Both are in regular personal use and feed
+            <a href="/projects/research-framework/">ResearchFramework</a>, my
+            modeling layer. FRED_Loader is mid-refactor as I bring it in line with
+            the conventions Census_Loader settled on.
+          </p>
+          <p>
+            <a href="https://github.com/iasolb/FRED_Loader" rel="noopener"
+              >FRED_Loader</a
+            >
+            &middot;
+            <a href="https://github.com/iasolb/Census_Loader" rel="noopener"
+              >Census_Loader</a
+            >
+            &middot; <a href="/projects/">Back to all work</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; 2026 Ian Solberg</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+          <a href="mailto:ian@solbergmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
