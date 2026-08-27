@@ -1,0 +1,164 @@
+/* iansolberg.us design tokens, settled with Ian 2026-08-27.
+ *
+ * Load this FIRST, before any other stylesheet.
+ * The decision record, including every direction that was rejected, lives in
+ * Ian's memory bank at memory/brand.md and memory/personal-website.md.
+ *
+ * Every colour pair below clears WCAG AA against --page, in BOTH themes. Do not
+ * darken a page or dim any text without recomputing: in dark the small
+ * monospace metadata fails first (it already had to be lifted from 4.26:1 to
+ * 4.50:1), and in light it is the accent.
+ */
+
+/* Dark is the default, per the 2026-08-13 contract. Light was added
+ * 2026-08-27 at Ian's request ("kinda want light/dark option somewhere").
+ *
+ * Three ways in, in priority order: an explicit [data-theme] on <html> wins,
+ * then the OS preference, then dark. So the toggle is a one-attribute flip and
+ * a visitor with no stated preference still gets the design as approved.
+ */
+:root, [data-theme="dark"] {
+  /* Surface and ink. Warm near-black, not the cooler GitHub grey. */
+  --page:      #100f0d;
+  --heading:   #f7f3ea;  /* 17.30:1 */
+  --body:      #aaa294;  /*  7.58:1 */
+  --meta:      #817a6d;  /*  4.50:1, the tightest in the set */
+  --kicker:    #8a8375;  /*  5.09:1 */
+  --rule:      #29261f;
+
+  /* ORANGE IS THE BRAND (Ian, 2026-08-27). On dark it works everywhere. */
+  --brand:     #ff7a1a;  /* the identity colour, unchanged in both themes */
+  --accent:    #ff7a1a;  /*  7.34:1 on dark, safe as text here */
+  --on-brand:  #100f0d;  /*  7.34:1 against a --brand fill */
+}
+
+/* Light: warm paper, mirroring the dark rather than going sterile white. */
+[data-theme="light"] {
+  --page:      #faf6ee;
+  --heading:   #17150f;  /* 16.93:1 */
+  --body:      #4a4438;  /*  8.96:1 */
+  --meta:      #6e6759;  /*  5.20:1 */
+  --kicker:    #6e6759;  /*  5.20:1 */
+  --rule:      #ddd4c2;
+
+  /* THE BRAND ORANGE IS UNCHANGED, but it CANNOT be text on paper: #ff7a1a is
+   * 2.42:1 there, and no bright orange tested cleared even the 3:1 graphic bar.
+   * So on light, orange is a FILL and --accent is a darkened same-hue variant
+   * for text and links. Reusing the dark accent on paper is the single most
+   * common light-mode bug; this is what avoiding it costs. */
+  --brand:     #ff7a1a;  /* fills, illustration, large shapes only */
+  --accent:    #bd4f00;  /*  4.55:1, text and links */
+  --on-brand:  #17150f;  /*  7.00:1 against a --brand fill */
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --page:      #faf6ee;
+    --heading:   #17150f;
+    --body:      #4a4438;
+    --meta:      #6e6759;
+    --kicker:    #6e6759;
+    --rule:      #e6dccb;
+    --brand:     #ff7a1a;
+    --accent:    #bd4f00;
+    --on-brand:  #17150f;
+  }
+}
+
+:root {
+  /* Type. Serif display AND serif body; the real faces are still to pick, so
+   * these stacks are deliberately system-only and will not shift layout when
+   * a webfont is added on top. */
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-body:    Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Headline metrics measured on a 390px phone frame, which is the width the
+   * design was approved at. */
+  --headline-size:    1.92rem;
+  --headline-leading: 1.16;
+  --headline-tracking: -0.02em;
+  --measure:          24ch;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--body);
+  font-family: var(--font-body);
+  line-height: 1.62;
+}
+
+/* The masthead: portrait as a small circle beside the name, role line beneath.
+ * Untreated photograph, always. No filter, tint, or blend on this image. */
+.masthead { display: flex; align-items: center; gap: 15px; }
+.masthead img {
+  width: 62px; height: 62px; flex: 0 0 62px;
+  border-radius: 50%; object-fit: cover;
+  border: 1px solid var(--rule);
+}
+.masthead .name {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 1.28rem; line-height: 1.15; letter-spacing: -0.015em;
+  color: var(--heading);
+}
+.masthead .role {
+  font-family: var(--font-mono); font-size: 0.63rem;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--kicker); margin-top: 5px;
+}
+
+/* The tagline IS the headline. There is no separate tagline line: that was the
+ * specific change that made this version work. */
+.headline {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--headline-size);
+  line-height: var(--headline-leading);
+  letter-spacing: var(--headline-tracking);
+  color: var(--heading);
+  max-width: var(--measure);
+  margin: 0;
+}
+.headline em { font-style: italic; color: var(--accent); }
+
+/* Monospace is for metadata only: kickers, role lines, dates, counts. Never
+ * for body copy or headings. */
+.kicker {
+  font-family: var(--font-mono); font-size: 0.63rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--kicker);
+}
+.meta {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--meta);
+}
+
+.rule { border: 0; border-top: 1px solid var(--rule); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: 400;
+  color: var(--heading); letter-spacing: -0.012em;
+}
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+/* A brand fill: the one place the full-strength orange appears as a surface.
+ * Text on it uses --on-brand, never --heading, because the ink has to flip with
+ * the theme's fill contrast rather than with the page. */
+.brand-fill {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-radius: 6px;
+  padding: 12px 15px;
+}
+
+/* Botanical decoration. The motifs are drawn with stroke="currentColor", so they
+ * inherit whatever colour the container sets and one file serves both themes. They are DECORATION: never the only carrier of
+ * meaning, always low opacity so they sit behind the reading, and never placed
+ * where they reduce text contrast. */
+.deco { color: var(--brand); opacity: 0.16; pointer-events: none; }
+.deco--mark { opacity: 0.55; }   /* a small motif used as a section mark */
+.deco--foot { opacity: 0.40; }
+
+/* Sentence case everywhere, per the 2026-08-13 contract. Enforced by writing,
+ * not by CSS: never add text-transform beyond the monospace metadata above. */
