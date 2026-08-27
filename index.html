@@ -1,288 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ian Solberg</title>
-    <meta
-      name="description"
-      content="Ian Solberg, data science and economics at Northeastern University, class of 2027. Marketing analyst co-op at Wayfair and undergraduate researcher in the Loth Lab. Data infrastructure, internal applications, and open-source Python libraries."
-    />
-    <link rel="canonical" href="https://iansolberg.us/" />
-    <meta name="theme-color" content="#0d1117" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Ian Solberg" />
-    <meta property="og:title" content="Ian Solberg" />
-    <meta
-      property="og:description"
-      content="Data science and economics at Northeastern University. Marketing analyst co-op at Wayfair, undergraduate researcher in the Loth Lab."
-    />
-    <meta property="og:url" content="https://iansolberg.us/" />
-    <meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/assets/css/site.css" />
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="site-header">
-      <div class="wrap">
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true">IS</span>
-          Ian Solberg
-        </a>
-        <nav class="site-nav" aria-label="Main">
-          <a href="/projects/">Work</a>
-          <a href="/about/">About</a>
-          <a href="/writing/">Writing</a>
-          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
-          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main">
-      <section class="hero wrap">
-        <p class="eyebrow">Northeastern University &middot; Boston, MA</p>
-        <h1>Ian Solberg</h1>
-        <p class="tagline">
-          Helping people interact with the data they create, in the way they want
-          to.
-        </p>
-        <p class="lede">
-          Data science and economics, class of 2027. Currently a
-          <strong>marketing analyst co-op at Wayfair</strong>, working in
-          BigQuery on data validation and analysis tooling, and an
-          <strong>undergraduate researcher in Northeastern's Loth Lab</strong>,
-          where I built and deployed the BRAIN project's interactive dashboard
-          over patient morphometric data. Outside of that I build database
-          migrations, web applications, and Python libraries that wrap public
-          data APIs.
-        </p>
-        <div class="contact-row">
-          <a class="btn btn-primary" href="/assets/resume/ian-solberg-resume.pdf"
-            >Resume (PDF)</a
-          >
-          <a class="btn" href="/projects/">Projects</a>
-        </div>
-      </section>
-
-      <section class="section wrap" aria-labelledby="work-heading">
-        <div class="section-label">
-          <h2 id="work-heading">Selected work</h2>
-          <span class="rule"></span>
-          <a href="/projects/">All projects</a>
-        </div>
-
-        <div class="card-grid">
-          <a class="card" href="/projects/debt-regime-inflation/">
-            <span class="card-kicker">Published &middot; Applied econometrics</span>
-            <h3>The 100% threshold</h3>
-            <p>
-              Government debt above 100% of GDP flips the sign on money supply's
-              effect on consumer prices, and makes inflation expectations pass
-              through 4.6 times more strongly. Weekly FRED data, 1990 to 2026.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>Econometrics</li>
-                <li>statsmodels</li>
-                <li>Monte Carlo</li>
-              </ul>
-            </div>
-          </a>
-
-          <a class="card" href="/projects/brain-chiari-dashboard/">
-            <span class="card-kicker">Research &middot; Loth Lab</span>
-            <h3>Chiari morphometrics dashboard</h3>
-            <p>
-              An interactive dashboard over patient morphometric measurements for
-              the BRAIN project, containerized and deployed so the research team
-              can filter and plot the data directly.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>Python</li>
-                <li>HoloViz Panel</li>
-                <li>Docker</li>
-              </ul>
-            </div>
-          </a>
-
-          <a class="card" href="/projects/edgewater-farm/">
-            <span class="card-kicker">Product &middot; Working farm</span>
-            <h3>Edgewater Farm database and field app</h3>
-            <p>
-              A legacy Microsoft Access database migrated to MySQL, with a
-              mobile-first progressive web app for logging planting, harvest, and
-              sales from the field.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>MySQL</li>
-                <li>FastAPI</li>
-                <li>SQLAlchemy</li>
-                <li>HTMX</li>
-              </ul>
-            </div>
-          </a>
-
-          <a class="card" href="/projects/data-loaders/">
-            <span class="card-kicker">Open source</span>
-            <h3>FRED and Census loaders</h3>
-            <p>
-              Two Python libraries providing a readable naming layer over federal
-              data APIs, with discovery helpers and rate-limit-aware batching.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>Python</li>
-                <li>API design</li>
-                <li>pandas</li>
-              </ul>
-            </div>
-          </a>
-
-          <a class="card" href="/projects/research-framework/">
-            <span class="card-kicker">Research tooling</span>
-            <h3>ResearchFramework</h3>
-            <p>
-              A Monte Carlo and statistical modeling framework built on those
-              loaders, used for work on wealth concentration and monetary policy
-              transmission.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>Monte Carlo</li>
-                <li>NumPy</li>
-                <li>Economics</li>
-              </ul>
-            </div>
-          </a>
-
-          <a class="card" href="/projects/financial-edge-connector/">
-            <span class="card-kicker">Client work</span>
-            <h3>Financial Edge Connector</h3>
-            <p>
-              A Flask application giving an independent school's faculty a
-              Google-authenticated view of their budget data through the
-              Blackbaud Sky API.
-            </p>
-            <div class="card-foot">
-              <ul class="tags">
-                <li>Flask</li>
-                <li>OAuth</li>
-                <li>REST</li>
-              </ul>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <section class="section wrap" aria-labelledby="now-heading">
-        <div class="section-label">
-          <h2 id="now-heading">Current</h2>
-          <span class="rule"></span>
-        </div>
-
-        <ul class="now-list">
-          <li>
-            <span class="when">Co-op</span>
-            <span class="what">
-              <strong>Marketing Analyst, Wayfair</strong>
-              Analysis and data validation in BigQuery, building reusable
-              cleaners and analysis scripts. Returning for a second co-op term in
-              fall 2026.
-            </span>
-          </li>
-          <li>
-            <span class="when">Research</span>
-            <span class="what">
-              <strong>Loth Lab, Northeastern University</strong>
-              Undergraduate researcher on the BRAIN project, studying Chiari
-              malformation through imaging and morphometric analysis.
-            </span>
-          </li>
-          <li>
-            <span class="when">Building</span>
-            <span class="what">
-              <strong>Edgewater Farm database and field app</strong>
-              An Access to MySQL migration and a progressive web app for farm
-              operations, in active development.
-            </span>
-          </li>
-          <li>
-            <span class="when">Interests</span>
-            <span class="what">
-              <strong>Distributional macroeconomics</strong>
-              How wealth concentration affects consumption, investment, and
-              monetary policy transmission. API development and automation.
-              <a href="/writing/">More on this</a>.
-            </span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="section wrap" aria-labelledby="contact-heading">
-        <div class="section-label">
-          <h2 id="contact-heading">Contact</h2>
-          <span class="rule"></span>
-        </div>
-        <div class="prose">
-          <p>Email is the best way to reach me.</p>
-        </div>
-        <ul class="contact-list">
-          <li>
-            <span class="label">Business</span>
-            <a href="mailto:ian@solbergmail.com">ian@solbergmail.com</a>
-          </li>
-          <li>
-            <span class="label">Personal</span>
-            <a href="mailto:ianspraguesolberg@gmail.com"
-              >ianspraguesolberg@gmail.com</a
-            >
-          </li>
-          <li>
-            <span class="label">School</span>
-            <a href="mailto:solberg.i@northeastern.edu"
-              >solberg.i@northeastern.edu</a
-            >
-          </li>
-        </ul>
-        <div class="contact-row">
-          <a
-            class="btn"
-            href="https://www.linkedin.com/in/iansolberg"
-            rel="me noopener"
-            >LinkedIn</a
-          >
-          <a class="btn" href="https://github.com/iasolb" rel="me noopener"
-            >GitHub</a
-          >
-          <a class="btn" href="https://iasolb.substack.com" rel="me noopener"
-            >Substack</a
-          >
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="wrap">
-        <span>&copy; 2026 Ian Solberg</span>
-        <nav class="footer-links" aria-label="Footer">
-          <a href="/projects/">Work</a>
-          <a href="/about/">About</a>
-          <a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
-          <a href="/writing/">Writing</a>
-          <a href="mailto:ian@solbergmail.com">Email</a>
-          <a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
-          <a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
-          <a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
-        </nav>
-      </div>
-    </footer>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ian Solberg</title>
+<meta name="description" content="Data science and economics at Northeastern University. Marketing analyst co-op at Wayfair, undergraduate researcher in the Loth Lab. Data infrastructure, internal applications, and open-source Python libraries." />
+<link rel="canonical" href="https://iansolberg.us/" />
+<meta name="theme-color" content="#0d1117" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Ian Solberg" />
+<meta property="og:title" content="Ian Solberg" />
+<meta property="og:description" content="Data science and economics at Northeastern University. Marketing analyst co-op at Wayfair, undergraduate researcher in the Loth Lab." />
+<meta property="og:url" content="https://iansolberg.us/" />
+<meta property="og:image" content="https://iansolberg.us/assets/social-card.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/assets/css/site.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/"><span class="brand-mark" aria-hidden="true">IS</span> Ian Solberg</a>
+<nav class="site-nav" aria-label="Main">
+<a href="/projects/">Work</a>
+<a href="/about/">About</a>
+<a href="/writing/">Writing</a>
+<a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+<a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+</nav>
+</div>
+</header>
+<main id="main">
+<section class="hero wrap">
+<p class="eyebrow">Northeastern University &middot; Boston, MA</p>
+<h1>Ian Solberg</h1>
+<p class="tagline">Helping people interact with the data they create, in the way they want to.</p>
+<p class="lede">Data science and economics at Northeastern, class of 2027. Marketing analyst co-op at Wayfair, and an undergraduate researcher in the Loth Lab where I built the BRAIN project's dashboard over patient morphometric data. I also build database migrations, web applications, and Python libraries that wrap public data APIs.</p>
+<div class="contact-row">
+<a class="btn btn-primary" href="/assets/resume/ian-solberg-resume.pdf">Resume (PDF)</a>
+<a class="btn" href="/projects/">Projects</a>
+</div>
+</section>
+<section class="section wrap" aria-labelledby="work-heading">
+<div class="section-label">
+<h2 id="work-heading">Selected work</h2>
+<span class="rule"></span>
+<a href="/projects/">All projects</a>
+</div>
+<div class="card-grid">
+<a class="card" href="/projects/debt-regime-inflation/">
+<span class="card-kicker">Published &middot; Applied econometrics</span>
+<h3>The 100% threshold</h3>
+<p>Government debt above 100% of GDP flips the sign on money supply's effect on prices. Weekly FRED data, 1990 to 2026.</p>
+<div class="card-foot"><ul class="tags"><li>Econometrics</li><li>statsmodels</li><li>Monte Carlo</li></ul></div>
+</a>
+<a class="card" href="/projects/brain-chiari-dashboard/">
+<span class="card-kicker">Research &middot; Loth Lab</span>
+<h3>Chiari morphometrics dashboard</h3>
+<p>Interactive dashboard over patient morphometrics for the BRAIN project, deployed so the research team can filter and plot the data directly.</p>
+<div class="card-foot"><ul class="tags"><li>Python</li><li>HoloViz Panel</li><li>Docker</li></ul></div>
+</a>
+<a class="card" href="/projects/edgewater-farm/">
+<span class="card-kicker">Product &middot; Working farm</span>
+<h3>Edgewater Farm database and field app</h3>
+<p>A Microsoft Access database migrated to MySQL, with a mobile-first progressive web app for logging planting, harvest, and sales from the field.</p>
+<div class="card-foot"><ul class="tags"><li>MySQL</li><li>FastAPI</li><li>SQLAlchemy</li><li>HTMX</li></ul></div>
+</a>
+<a class="card" href="/projects/data-loaders/">
+<span class="card-kicker">Open source</span>
+<h3>FRED and Census loaders</h3>
+<p>Two Python libraries providing a readable naming layer over federal data APIs, with discovery helpers and rate-limit-aware batching.</p>
+<div class="card-foot"><ul class="tags"><li>Python</li><li>API design</li><li>pandas</li></ul></div>
+</a>
+<a class="card" href="/projects/research-framework/">
+<span class="card-kicker">Research tooling</span>
+<h3>ResearchFramework</h3>
+<p>A Monte Carlo and statistical modeling framework built on those loaders.</p>
+<div class="card-foot"><ul class="tags"><li>Monte Carlo</li><li>NumPy</li><li>Economics</li></ul></div>
+</a>
+<a class="card" href="/projects/financial-edge-connector/">
+<span class="card-kicker">Client work</span>
+<h3>Financial Edge Connector</h3>
+<p>A Flask application giving an independent school's faculty a Google-authenticated view of their budget data through the Blackbaud Sky API.</p>
+<div class="card-foot"><ul class="tags"><li>Flask</li><li>OAuth</li><li>REST</li></ul></div>
+</a>
+</div>
+</section>
+<section class="section wrap" aria-labelledby="now-heading">
+<div class="section-label">
+<h2 id="now-heading">Current</h2>
+<span class="rule"></span>
+</div>
+<ul class="now-list">
+<li><span class="when">Co-op</span><span class="what"><strong>Marketing Analyst, Wayfair</strong> Data validation and analysis in BigQuery. Returning for a second term in fall 2026.</span></li>
+<li><span class="when">Research</span><span class="what"><strong>Loth Lab, Northeastern University</strong> Undergraduate researcher on the BRAIN project, studying Chiari malformation.</span></li>
+<li><span class="when">Building</span><span class="what"><strong>Edgewater Farm database and field app</strong> An Access to MySQL migration and a web app for farm operations, in active development.</span></li>
+<li><span class="when">Interests</span><span class="what"><strong>Distributional macroeconomics</strong> How wealth concentration affects consumption, investment, and monetary policy transmission. API development and automation. <a href="/writing/">More on this</a>.</span></li>
+</ul>
+</section>
+<section class="section wrap" aria-labelledby="contact-heading">
+<div class="section-label">
+<h2 id="contact-heading">Contact</h2>
+<span class="rule"></span>
+</div>
+<div class="prose"><p>Email is the best way to reach me.</p></div>
+<ul class="contact-list">
+<li><span class="label">Business</span><a href="mailto:ian@solbergmail.com">ian@solbergmail.com</a></li>
+<li><span class="label">Personal</span><a href="mailto:ianspraguesolberg@gmail.com">ianspraguesolberg@gmail.com</a></li>
+<li><span class="label">School</span><a href="mailto:solberg.i@northeastern.edu">solberg.i@northeastern.edu</a></li>
+</ul>
+<div class="contact-row">
+<a class="btn" href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+<a class="btn" href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+<a class="btn" href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<span>&copy; 2026 Ian Solberg</span>
+<nav class="footer-links" aria-label="Footer">
+<a href="/projects/">Work</a>
+<a href="/about/">About</a>
+<a href="/assets/resume/ian-solberg-resume.pdf">Resume</a>
+<a href="/writing/">Writing</a>
+<a href="mailto:ian@solbergmail.com">Email</a>
+<a href="https://www.linkedin.com/in/iansolberg" rel="me noopener">LinkedIn</a>
+<a href="https://github.com/iasolb" rel="me noopener">GitHub</a>
+<a href="https://iasolb.substack.com" rel="me noopener">Substack</a>
+</nav>
+</div>
+</footer>
+</body>
 </html>
