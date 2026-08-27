@@ -127,6 +127,16 @@ CASES = [
     ("1  tokens.css deleted", "1",
      lambda: delete("assets/css/tokens.css")),
 
+    # assertion 1b, Ian's correction: square or portrait, never a circle
+    ("1b the masthead portrait is rounded to a circle", "1b",
+     lambda: edit_text("assets/css/tokens.css",
+                       lambda s: s.replace("border-radius: 4px; object-fit: cover;",
+                                           "border-radius: 50%; object-fit: cover;"))),
+    ("1b the masthead portrait gets a pill radius", "1b",
+     lambda: edit_text("assets/css/tokens.css",
+                       lambda s: s.replace("border-radius: 4px; object-fit: cover;",
+                                           "border-radius: 40px; object-fit: cover;"))),
+
     # assertion 2
     ("2  stylesheet links reordered", "2",
      lambda: edit_text("about/index.html",
@@ -214,8 +224,10 @@ CASES = [
      lambda: delete("assets/img/ian-byline.jpg")),
     ("6  the portrait is not a JPEG", "6",
      lambda: corrupt("assets/img/ian-byline.jpg")),
-    ("6  the portrait is not square", "6",
+    ("6  the portrait is landscape", "6",
      lambda: repatch_portrait(lambda raw: with_declared_size(raw, 400, 320))),
+    ("6  the portrait is a tall strip", "6",
+     lambda: repatch_portrait(lambda raw: with_declared_size(raw, 200, 600))),
     ("6  the portrait is a full-size phone photo", "6",
      lambda: repatch_portrait(lambda raw: with_declared_size(raw, 5712, 4284))),
     ("6  the portrait weighs megabytes", "6",

@@ -89,12 +89,19 @@ body {
   line-height: 1.62;
 }
 
-/* The masthead: portrait as a small circle beside the name, role line beneath.
- * Untreated photograph, always. No filter, tint, or blend on this image. */
+/* The masthead: portrait beside the name, role line beneath.
+ * Untreated photograph, always. No filter, tint, or blend on this image.
+ *
+ * SQUARE OR PORTRAIT ONLY, NEVER A CIRCLE (Ian, 2026-08-27: "I don't want a
+ * circle I want a square or portrait shape only"). This supersedes the
+ * "small circle" in the 2026-08-27 brand order, which shipped
+ * border-radius: 50% here. 4:5 is the byline shape; the corner radius is
+ * small enough to read as a rectangle rather than rounding the silhouette.
+ * Do not reintroduce a round or pill radius on this image. */
 .masthead { display: flex; align-items: center; gap: 15px; }
 .masthead img {
-  width: 62px; height: 62px; flex: 0 0 62px;
-  border-radius: 50%; object-fit: cover;
+  width: 62px; height: 78px; flex: 0 0 62px;
+  border-radius: 4px; object-fit: cover;
   border: 1px solid var(--rule);
 }
 .masthead .name {

@@ -247,6 +247,22 @@ def check_tokens() -> None:
     if declared(light, "--accent") == declared(dark, "--accent"):
         fail("1", "light mode reuses the dark accent; #ff7a1a is 2.42:1 on paper")
 
+    # 1b: the masthead portrait is square or portrait, never a circle
+    # (Ian, 2026-08-27: "I don't want a circle I want a square or portrait
+    # shape only"). The order as written shipped border-radius: 50% here, so
+    # this is the assertion that stops it coming back.
+    radius = declared(blocks.get(".masthead img", ""), "border-radius")
+    if radius is None:
+        fail("1b", "`.masthead img` declares no border-radius")
+    elif "%" in radius or "50%" in radius:
+        fail("1b", f"`.masthead img` border-radius is {radius!r}; a percentage rounds it to a circle")
+    else:
+        px = re.match(r"([\d.]+)px$", radius)
+        if not px:
+            fail("1b", f"`.masthead img` border-radius {radius!r} is not a plain px value")
+        elif float(px.group(1)) > 8:
+            fail("1b", f"`.masthead img` border-radius is {radius}, too round for a square shape")
+
 
 # --------------------------------------------------------------------------- #
 # assertion 6: the portrait
@@ -322,8 +338,11 @@ def check_portrait() -> None:
     # "Readable JPEG" is not enough on its own. A raw phone photo passes that and
     # is still wrong here: it arrives sideways with the rotation only in EXIF, and
     # weighs megabytes for a 62px circle. All three were true of the first upload.
-    if abs(w - h) > max(w, h) * 0.02:
-        fail("6", f"{PORTRAIT} is {w}x{h}; the masthead crops to a circle, so it must be square")
+    # Square or portrait only, never landscape (Ian, 2026-08-27).
+    if w > h * 1.02:
+        fail("6", f"{PORTRAIT} is {w}x{h}, landscape; it must be square or portrait")
+    if h > w * 1.6:
+        fail("6", f"{PORTRAIT} is {w}x{h}, too tall for the masthead; keep it at or under 8:5")
     if max(w, h) > 1024:
         fail("6", f"{PORTRAIT} is {w}x{h}, oversized for a 62px avatar; resize to <=1024")
     if kb > 200:
