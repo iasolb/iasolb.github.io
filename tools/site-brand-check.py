@@ -43,6 +43,7 @@ AVAILABILITY = "Open for the Fall 2027 co-op cycle"
 ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
     LANDING: [
         (AVAILABILITY, "step 5, the availability line"),
+        ("Data science & economics", "step 4, the masthead role line"),
     ],
 }
 
@@ -276,16 +277,64 @@ def jpeg_size(raw: bytes) -> tuple[int, int] | None:
     return None
 
 
+def exif_orientation(raw: bytes) -> int | None:
+    """The EXIF orientation flag, or None when there is no EXIF at all."""
+    i = raw.find(b"Exif\x00\x00")
+    if i < 0:
+        return None
+    tiff = i + 6
+    if raw[tiff : tiff + 2] == b"MM":
+        end = "big"
+    elif raw[tiff : tiff + 2] == b"II":
+        end = "little"
+    else:
+        return None
+
+    def u16(o: int) -> int:
+        return int.from_bytes(raw[o : o + 2], end)
+
+    def u32(o: int) -> int:
+        return int.from_bytes(raw[o : o + 4], end)
+
+    ifd = tiff + u32(tiff + 4)
+    for n in range(u16(ifd)):
+        e = ifd + 2 + n * 12
+        if u16(e) == 0x0112:
+            return u16(e + 8)
+    return None
+
+
 def check_portrait() -> None:
     path = ROOT / PORTRAIT
     if not path.is_file():
         fail("6", f"{PORTRAIT} does not exist")
         return
-    size = jpeg_size(path.read_bytes())
+    raw = path.read_bytes()
+    size = jpeg_size(raw)
     if size is None:
         fail("6", f"{PORTRAIT} is not a readable JPEG")
-    else:
-        print(f"  portrait {PORTRAIT}: {size[0]}x{size[1]} JPEG")
+        return
+
+    w, h = size
+    kb = len(raw) / 1024
+    print(f"  portrait {PORTRAIT}: {w}x{h} JPEG, {kb:.0f} KB")
+
+    # "Readable JPEG" is not enough on its own. A raw phone photo passes that and
+    # is still wrong here: it arrives sideways with the rotation only in EXIF, and
+    # weighs megabytes for a 62px circle. All three were true of the first upload.
+    if abs(w - h) > max(w, h) * 0.02:
+        fail("6", f"{PORTRAIT} is {w}x{h}; the masthead crops to a circle, so it must be square")
+    if max(w, h) > 1024:
+        fail("6", f"{PORTRAIT} is {w}x{h}, oversized for a 62px avatar; resize to <=1024")
+    if kb > 200:
+        fail("6", f"{PORTRAIT} is {kb:.0f} KB, too heavy for a landing-page avatar")
+    orient = exif_orientation(raw)
+    if orient not in (None, 1):
+        fail(
+            "6",
+            f"{PORTRAIT} carries EXIF orientation {orient}, so it only looks upright in "
+            "browsers that honour EXIF. Bake the rotation into the pixels.",
+        )
 
 
 # --------------------------------------------------------------------------- #

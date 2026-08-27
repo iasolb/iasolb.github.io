@@ -212,6 +212,13 @@ main {
   max-width: 24ch;
 }
 
+/* The masthead name is the page's h1, so the hero h1 metrics above would
+   otherwise push the role line off its baseline. tokens.css owns the type. */
+.hero .masthead .name {
+  margin: 0;
+  max-width: none;
+}
+
 .hero .tagline {
   font-size: clamp(1.375rem, 3.2vw, 1.875rem);
   line-height: 1.35;

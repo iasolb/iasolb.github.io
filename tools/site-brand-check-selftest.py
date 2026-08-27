@@ -55,6 +55,57 @@ def corrupt(rel):
     return lambda: path.write_bytes(original)
 
 
+PORTRAIT = "assets/img/ian-byline.jpg"
+
+
+def repatch_portrait(fn):
+    """Swap the portrait for a defective variant built from its own bytes.
+
+    Built rather than shipped, so the selftest stays stdlib-only and carries no
+    fixture images of its own.
+    """
+    path = ROOT / PORTRAIT
+    original = path.read_bytes()
+    path.write_bytes(fn(original))
+    return lambda: path.write_bytes(original)
+
+
+def _sof_offset(raw):
+    """Byte offset of the frame header, where a JPEG declares its dimensions."""
+    i = 2
+    while i + 3 < len(raw):
+        if raw[i] != 0xFF:
+            return None
+        m = raw[i + 1]
+        if m in (0xD8, 0x01) or 0xD0 <= m <= 0xD7:
+            i += 2
+            continue
+        if 0xC0 <= m <= 0xCF and m not in (0xC4, 0xC8, 0xCC):
+            return i
+        i += 2 + int.from_bytes(raw[i + 2 : i + 4], "big")
+    return None
+
+
+def with_declared_size(raw, w, h):
+    i = _sof_offset(raw)
+    assert i is not None, "no frame header in the portrait"
+    out = bytearray(raw)
+    out[i + 5 : i + 7] = h.to_bytes(2, "big")
+    out[i + 7 : i + 9] = w.to_bytes(2, "big")
+    return bytes(out)
+
+
+def with_exif_orientation_6(raw):
+    """Insert a minimal EXIF block saying "rotate me", the first upload's defect."""
+    tiff = (b"MM\x00\x2a\x00\x00\x00\x08"          # big-endian, IFD0 at offset 8
+            b"\x00\x01"                              # one entry
+            b"\x01\x12\x00\x03\x00\x00\x00\x01\x00\x06\x00\x00"  # orientation = 6
+            b"\x00\x00\x00\x00")                     # no next IFD
+    payload = b"Exif\x00\x00" + tiff
+    seg = b"\xff\xe1" + (len(payload) + 2).to_bytes(2, "big") + payload
+    return raw[:2] + seg + raw[2:]
+
+
 def add_page(rel):
     path = ROOT / rel
     path.write_text("<!DOCTYPE html><html><head></head><body></body></html>")
@@ -157,10 +208,20 @@ CASES = [
                            "<div class=\"prose\"><p>Email is the best way to reach me.</p></div>",
                            "<div class=\"prose\"></div>", 1))),
 
-    # assertion 6 has no case here: it is the order's outstanding blocker, so it
-    # is already red at baseline and there is nothing to break. Do NOT add a
-    # placeholder JPEG to make it green; substituting an asset is the exact
-    # failure this order forbids.
+    # assertion 6. The last three are the real upload's actual defects: it came
+    # in sideways with the rotation only in EXIF, 5712x4284, and 3.4 MB.
+    ("6  the portrait is deleted", "6",
+     lambda: delete("assets/img/ian-byline.jpg")),
+    ("6  the portrait is not a JPEG", "6",
+     lambda: corrupt("assets/img/ian-byline.jpg")),
+    ("6  the portrait is not square", "6",
+     lambda: repatch_portrait(lambda raw: with_declared_size(raw, 400, 320))),
+    ("6  the portrait is a full-size phone photo", "6",
+     lambda: repatch_portrait(lambda raw: with_declared_size(raw, 5712, 4284))),
+    ("6  the portrait weighs megabytes", "6",
+     lambda: repatch_portrait(lambda raw: raw + b"\x00" * 400_000)),
+    ("6  the portrait is upright only via EXIF", "6",
+     lambda: repatch_portrait(with_exif_orientation_6)),
 
     # scope
     ("sc a page is added", "scope",
