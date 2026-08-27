@@ -43,7 +43,6 @@ AVAILABILITY = "Open for the Fall 2027 co-op cycle"
 ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
     LANDING: [
         (AVAILABILITY, "step 5, the availability line"),
-        ("Data science & economics", "step 4, the masthead role line"),
     ],
 }
 
