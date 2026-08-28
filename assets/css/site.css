@@ -1,26 +1,35 @@
 /* iansolberg.us
    One stylesheet, no build step, no webfonts. Dark by default on purpose.
-   Palette is GitHub's dark theme (Primer), which is already contrast-checked. */
+   Colour now comes from assets/css/tokens.css, which every page loads first;
+   this file maps its own role names onto those tokens and keeps the layout. */
 
 :root {
-  /* surfaces */
-  --canvas: #0d1117;
-  --canvas-inset: #010409;
+  /* surfaces. --canvas-inset is only ever ink sitting on the accent fill, so it
+     is the fill's ink token. --surface and --surface-hover are panels one step
+     off the page; tokens.css has no panel colour, so they are derived from the
+     page and the ink instead of being pinned to a literal, which is what lets
+     them follow the theme. Literals stay first as the pre-color-mix fallback,
+     the same shape .site-header below already uses. */
+  --canvas: var(--page);
+  --canvas-inset: var(--on-brand);
   --surface: #161b22;
+  --surface: color-mix(in srgb, var(--page) 93%, var(--heading));
   --surface-hover: #1c2129;
+  --surface-hover: color-mix(in srgb, var(--page) 88%, var(--heading));
 
   /* lines */
-  --border: #30363d;
-  --border-muted: #21262d;
+  --border: var(--rule);
+  --border-muted: var(--rule);
 
   /* text */
-  --fg: #e6edf3;
-  --fg-muted: #9198a1;
-  --fg-subtle: #6e7681;
+  --fg: var(--heading);
+  --fg-muted: var(--body);
+  --fg-subtle: var(--meta);
 
-  /* accents, used sparingly */
-  --accent: #58a6ff;
-  --accent-quiet: #388bfd;
+  /* accents, used sparingly. --accent is deliberately NOT redeclared here: it
+     is the brand orange from tokens.css, and shadowing it would both hide the
+     brand and make `--accent: var(--accent)` a self-reference. */
+  --accent-quiet: var(--accent);
   --violet: #a371f7;
   --green: #3fb950;
 
@@ -30,9 +39,9 @@
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
-  /* rhythm */
-  --measure: 68ch;
-  --page: 1080px;
+  /* rhythm. --measure and --page are names tokens.css also uses, for the text
+     measure and the page COLOUR, so the two layout values are inlined at their
+     use sites instead of shadowing a token. */
   --gap: 1.5rem;
 
   --radius: 10px;
@@ -75,13 +84,13 @@ body {
 
 .wrap {
   width: 100%;
-  max-width: var(--page);
+  max-width: 1080px;
   margin-inline: auto;
   padding-inline: 1.5rem;
 }
 
 .prose {
-  max-width: var(--measure);
+  max-width: 68ch;
 }
 
 main {
@@ -201,6 +210,13 @@ main {
   margin: 0 0 1.25rem;
   font-weight: 650;
   max-width: 24ch;
+}
+
+/* The masthead name is the page's h1, so the hero h1 metrics above would
+   otherwise push the role line off its baseline. tokens.css owns the type. */
+.hero .masthead .name {
+  margin: 0;
+  max-width: none;
 }
 
 .hero .tagline {
@@ -629,7 +645,7 @@ a.card:hover h3 {
 .btn-primary {
   background: var(--accent-quiet);
   border-color: var(--accent-quiet);
-  color: #ffffff;
+  color: var(--on-brand);
   font-weight: 600;
 }
 
@@ -647,7 +663,7 @@ a.card:hover h3 {
   margin: 0 0 1.75rem;
   display: grid;
   gap: 0.85rem;
-  max-width: var(--measure);
+  max-width: 68ch;
 }
 
 .contact-list li {
