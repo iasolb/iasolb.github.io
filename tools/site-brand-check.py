@@ -107,14 +107,7 @@ def renamed(text: str | None) -> str | None:
 # Retire the entry once the deletion is committed, same lifecycle as the two
 # dicts below: after that the page is absent from the base too and the
 # declaration describes nothing.
-RETIRED_PAGES: dict[str, str] = {
-    "projects/solberg-mainframe/index.html":
-        "2026-09-13, Ian is taking the repository private, so the public "
-        "project page goes with it. Its sitemap entry and its card on the "
-        "projects index are removed in the same commit; a page that survives "
-        "in only one of the three is exactly the litter this check exists to "
-        "catch.",
-}
+RETIRED_PAGES: dict[str, str] = {}
 
 # Copy a pass deliberately REMOVES, per page. The third of the three things that
 # can happen to a word, added 2026-09-13 alongside RENAMES.
@@ -127,41 +120,9 @@ RETIRED_PAGES: dict[str, str] = {
 #
 # Same lifecycle warning as ALLOWED_ADDITIONS below: retire the entry once the
 # change is committed, or it subtracts a second time.
-ALLOWED_REMOVALS: dict[str, list[tuple[str, str]]] = {
-    "projects/financial-edge-connector/index.html": [
-        ("an independent school",
-         "2026-09-13, replaced by the two schools by name at Ian's request. "
-         "The preceding 'at' SURVIVES and is deliberately not listed here: a "
-         "removal declaration that overreaches by one word fails the count, "
-         "which is the gate catching a sloppy declaration rather than a sloppy "
-         "edit."),
-    ],
-}
+ALLOWED_REMOVALS: dict[str, list[tuple[str, str]]] = {}
 
 ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
-    LANDING: [
-        ("@ Northeastern Print Marketing Analyst Co-op @ Wayfair "
-         "Software Engineer @ Tall Poppies LLC",
-         "2026-09-13, the masthead role line became the three affiliations "
-         "from his GitHub profile. The existing 'Data science & economics' is "
-         "kept verbatim and the rest is appended, so this is a pure ADDITION "
-         "and assertion 5 stays strict. Title-casing those two words would "
-         "have been a page-wide recasing, because the lede below uses them "
-         "too."),
-    ],
-    "projects/financial-edge-connector/index.html": [
-        ("Running in production at two independent schools, Vermont Academy "
-         "and Cardigan Mountain School, where it is the paid product of Tall "
-         "Poppies LLC.",
-         "2026-09-13, the lede names the clients. Ian's call: he holds the "
-         "relationship and asked for it explicitly, after being told that "
-         "naming a client's finance system on a public portfolio is a "
-         "relationship question rather than a technical one."),
-        ("Vermont Academy and Cardigan Mountain School",
-         "2026-09-13, the Users row becomes two live links. Both were "
-         "confirmed answering 302 to sign-in, so a visitor sees a login wall "
-         "and never any financial data."),
-    ],
 }
 
 # AN ENTRY ABOVE IS RETIRED THE MOMENT IT IS COMMITTED, and forgetting that is

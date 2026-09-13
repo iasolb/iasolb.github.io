@@ -205,10 +205,15 @@ CASES = [
                        lambda t: t.replace(
                            '<p class="lede muted">Data science and economics at Northeastern',
                            '<p class="lede muted">Data science and economics at Northwestern', 1))),
+    # Retargeted 2026-09-13: the single "Selected work" heading became three
+    # sections (On PyPI / Paid work / Research), so the old fixture matched
+    # nothing and this self-test aborted mid-run rather than reporting a miss.
+    # A fixture that no longer exists in the page is a broken test, not a
+    # passing one, which is why edit_text asserts instead of shrugging.
     ("5  a word is deleted from body copy", "5",
      lambda: edit_text("index.html",
-                       lambda t: t.replace("<h2 id=\"work-heading\">Selected work</h2>",
-                                           "<h2 id=\"work-heading\">Work</h2>", 1))),
+                       lambda t: t.replace("<h2 id=\"paid-heading\">Paid work</h2>",
+                                           "<h2 id=\"paid-heading\">Paid</h2>", 1))),
     ("5  two words swapped, count unchanged", "5",
      lambda: edit_text("index.html",
                        lambda t: t.replace("Email is the best way to reach me.",
@@ -219,7 +224,7 @@ CASES = [
      lambda: edit_text("about/index.html",
                        lambda t: t.replace(
                            "Ian Solberg is a data science and economics undergraduate at "
-                           "Northeastern University, class of 2027, currently a marketing "
+                           "Northeastern University, class of 2028, currently a marketing "
                            "analyst co-op at Wayfair and an undergraduate researcher in "
                            "the Loth Lab.",
                            "Ian Solberg.", 1))),
