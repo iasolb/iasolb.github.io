@@ -79,6 +79,13 @@ RENAMES: dict[str, str] = {
     "Census_Loader.": "census-loader.",
 }
 
+# A rename confined to ONE page. RENAMES above is site-wide because a product
+# name is, and putting a page-local change there is a mistake with a wide blast
+# radius: `science` -> `Science` for the landing masthead rewrote the base copy
+# of every page that happened to use the word, and assertion 5 then reported
+# essentially the whole site as altered (measured 2026-09-13).
+PAGE_RENAMES: dict[str, dict[str, str]] = {}
+
 
 def renamed(text: str | None) -> str | None:
     """Apply RENAMES to a whole string, for copy that is NOT word-split.
@@ -93,16 +100,67 @@ def renamed(text: str | None) -> str | None:
         text = text.replace(old, new)
     return text
 
-ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
-    "writing/index.html": [
-        ("Powell's Predicament in the Context of Behavioral Economics. "
-         "Thoughts on the decision to keep rates steady. Read the post",
-         "2026-09-13, a second published Substack piece, its title and Ian's "
-         "own subtitle verbatim. The summary is NOT written here: inventing a "
-         "plausible description of what a post argues is the one thing the "
-         "design contract bans outright."),
+# Copy a pass deliberately REMOVES, per page. The third of the three things that
+# can happen to a word, added 2026-09-13 alongside RENAMES.
+#
+# Without it the only expressible change was "add", so replacing a phrase forced
+# the copy to be contorted into something that merely appended, which produces
+# worse writing to satisfy a tool. Declared removals are dropped from the base
+# side before comparison; an UNDECLARED deletion still fails, which is the whole
+# point of assertion 5 and the thing that catches a sentence going missing.
+#
+# Same lifecycle warning as ALLOWED_ADDITIONS below: retire the entry once the
+# change is committed, or it subtracts a second time.
+ALLOWED_REMOVALS: dict[str, list[tuple[str, str]]] = {
+    "projects/financial-edge-connector/index.html": [
+        ("an independent school",
+         "2026-09-13, replaced by the two schools by name at Ian's request. "
+         "The preceding 'at' SURVIVES and is deliberately not listed here: a "
+         "removal declaration that overreaches by one word fails the count, "
+         "which is the gate catching a sloppy declaration rather than a sloppy "
+         "edit."),
     ],
 }
+
+ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
+    LANDING: [
+        ("@ Northeastern Print Marketing Analyst Co-op @ Wayfair "
+         "Software Engineer @ Tall Poppies LLC",
+         "2026-09-13, the masthead role line became the three affiliations "
+         "from his GitHub profile. The existing 'Data science & economics' is "
+         "kept verbatim and the rest is appended, so this is a pure ADDITION "
+         "and assertion 5 stays strict. Title-casing those two words would "
+         "have been a page-wide recasing, because the lede below uses them "
+         "too."),
+    ],
+    "projects/financial-edge-connector/index.html": [
+        ("Running in production at two independent schools, Vermont Academy "
+         "and Cardigan Mountain School, where it is the paid product of Tall "
+         "Poppies LLC.",
+         "2026-09-13, the lede names the clients. Ian's call: he holds the "
+         "relationship and asked for it explicitly, after being told that "
+         "naming a client's finance system on a public portfolio is a "
+         "relationship question rather than a technical one."),
+        ("Vermont Academy and Cardigan Mountain School",
+         "2026-09-13, the Users row becomes two live links. Both were "
+         "confirmed answering 302 to sign-in, so a visitor sees a login wall "
+         "and never any financial data."),
+    ],
+}
+
+# AN ENTRY ABOVE IS RETIRED THE MOMENT IT IS COMMITTED, and forgetting that is
+# how this gate broke twice in one day.
+#
+# Assertion 5 diffs the working tree against `--base` (main). While a change is
+# uncommitted, `base_words` lacks it and the declaration makes the count add up.
+# Once it is committed, `base_words` CONTAINS it and the declaration adds it a
+# second time, so want_count is permanently too high and the gate can never pass
+# again. That is exactly how the August brand order's two phrases made this
+# unsatisfiable for weeks, and then the Substack entry added 2026-09-13 did the
+# same thing within the hour.
+#
+# So: declare, run the gate, commit, DELETE THE ENTRY. The dict being empty is
+# the healthy resting state.
 
 # Assertion 1: the nine tokens, and the three hex values the order pins.
 REQUIRED_TOKENS = (
@@ -494,12 +552,32 @@ def main() -> int:
         if rel in added:
             continue  # already reported as a scope violation; there is no base to diff
         base_page = parse_page(base_text(args.base, rel))
-        base_words = [RENAMES.get(w, w)
+        renames = {**RENAMES, **PAGE_RENAMES.get(rel, {})}
+        base_words = [renames.get(w, w)
                       for w in words_of("".join(base_page.text_parts))]
+
+        # Declared removals come off the base side as a CONTIGUOUS RUN, not as
+        # loose words. Removing word by word takes the first occurrence of each
+        # ANYWHERE on the page, so declaring "at an independent school" quietly
+        # deleted an earlier "at" and "an" and broke the alignment somewhere
+        # else entirely, which is worse than not supporting removals at all.
+        for phrase, _why in ALLOWED_REMOVALS.get(rel, []):
+            run = words_of(phrase)
+            cut = next((i for i in range(len(base_words) - len(run) + 1)
+                        if base_words[i:i + len(run)] == run), None)
+            if cut is None:
+                fail("5", f"{rel}: declared removal {phrase!r} does not appear "
+                          f"in the {args.base} copy as a contiguous phrase, so "
+                          f"the declaration is stale or misspelt")
+            else:
+                del base_words[cut:cut + len(run)]
+
         new_words = page.words
 
         # 5b: the same discipline for copy that hides in attributes.
         for key in sorted(set(base_page.copy_meta) | set(page.copy_meta)):
+            # Site-wide renames only. A PAGE_RENAMES entry is a body-copy
+            # recasing and must not silently rewrite a meta description.
             was = renamed(base_page.copy_meta.get(key))
             now = page.copy_meta.get(key)
             if was != now:

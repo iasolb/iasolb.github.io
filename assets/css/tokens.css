@@ -146,14 +146,18 @@ body {
   font-size: 1.28rem; line-height: 1.15; letter-spacing: -0.015em;
   color: var(--heading);
 }
-/* Comic Neue here too, not the mono (Ian, 2026-09-13). Tracking eased from
- * 0.13em to 0.08em: this face is already wide, and uppercase letterspacing
- * tuned for a condensed monospace reads as a gap at this size. */
+/* Comic Neue here too, not the mono (Ian, 2026-09-13).
+ *
+ * NO LONGER UPPERCASE. It became three stacked lines matching his GitHub
+ * profile, written in title case, and three lines of letterspaced caps at this
+ * size shouts where one line merely labelled. Tracking goes to near-neutral for
+ * the same reason: it existed to open up uppercase. */
 .masthead .role {
-  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--kicker); margin-top: 6px;
+  font-family: var(--font-display); font-size: 0.82rem; font-weight: 400;
+  letter-spacing: 0.005em;
+  color: var(--kicker); margin-top: 3px;
 }
+.masthead .role:first-of-type { margin-top: 7px; }
 
 /* The tagline IS the headline. There is no separate tagline line: that was the
  * specific change that made this version work. */
