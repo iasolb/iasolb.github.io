@@ -53,7 +53,56 @@ AVAILABILITY = "Open for the Fall 2027 co-op cycle"
 # availability line to appear exactly once and bans the wrong wording, and an
 # EMPTY list here is the stronger standing rule: base copy must survive
 # unchanged unless a pass deliberately declares what it is adding.
-ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {}
+# A PRODUCT RENAME IS A SUBSTITUTION, WHICH ADDITIONS CANNOT EXPRESS. Added
+# 2026-09-13, when all three libraries were renamed and published to PyPI.
+#
+# Assertion 5 aligns the new copy against the base word for word, so a single
+# renamed product broke the alignment on six pages at once and every remaining
+# word was reported as unauthorised. That is a true signal drowned in noise: the
+# gate was right that copy changed and useless about which change.
+#
+# Declaring the pair here applies it to the BASE side before comparing, so the
+# rename is the only thing forgiven and every other word on those pages is still
+# held to the letter. A rename that is NOT declared here still fails, which is
+# the protection.
+#
+# These are matched per WORD, so the spelling must be exactly what words_of()
+# produces. Punctuation attached to a word (a trailing comma or full stop) is
+# part of that word, which is why the bare forms are listed.
+RENAMES: dict[str, str] = {
+    "ResearchFramework": "otter",
+    "ResearchFramework,": "otter,",
+    "ResearchFramework.": "otter.",
+    "FRED_Loader": "fred-loader",
+    "FRED_Loader,": "fred-loader,",
+    "Census_Loader": "census-loader",
+    "Census_Loader.": "census-loader.",
+}
+
+
+def renamed(text: str | None) -> str | None:
+    """Apply RENAMES to a whole string, for copy that is NOT word-split.
+
+    Titles and meta descriptions are compared verbatim by assertion 5b, so the
+    word-level map above never reaches them and a renamed product read as a
+    copy change there even when it was declared.
+    """
+    if text is None:
+        return None
+    for old, new in RENAMES.items():
+        text = text.replace(old, new)
+    return text
+
+ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
+    "writing/index.html": [
+        ("Powell's Predicament in the Context of Behavioral Economics. "
+         "Thoughts on the decision to keep rates steady. Read the post",
+         "2026-09-13, a second published Substack piece, its title and Ian's "
+         "own subtitle verbatim. The summary is NOT written here: inventing a "
+         "plausible description of what a post argues is the one thing the "
+         "design contract bans outright."),
+    ],
+}
 
 # Assertion 1: the nine tokens, and the three hex values the order pins.
 REQUIRED_TOKENS = (
@@ -445,12 +494,13 @@ def main() -> int:
         if rel in added:
             continue  # already reported as a scope violation; there is no base to diff
         base_page = parse_page(base_text(args.base, rel))
-        base_words = words_of("".join(base_page.text_parts))
+        base_words = [RENAMES.get(w, w)
+                      for w in words_of("".join(base_page.text_parts))]
         new_words = page.words
 
         # 5b: the same discipline for copy that hides in attributes.
         for key in sorted(set(base_page.copy_meta) | set(page.copy_meta)):
-            was = base_page.copy_meta.get(key)
+            was = renamed(base_page.copy_meta.get(key))
             now = page.copy_meta.get(key)
             if was != now:
                 fail("5b", f"{rel}: {key} copy changed\n        was: {was!r}\n        now: {now!r}")

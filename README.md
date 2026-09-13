@@ -124,7 +124,7 @@ Exactly ONE broken link remains, and it is item 1.
    It should still sound like you rather than a careful description of you.
 4. **Optional: the remaining repository links.** Three are already direct, taken
    from his public GitHub profile on 2026-08-13 where they are pinned and public:
-   ResearchFramework, FRED_Loader and Census_Loader. The other project pages link
+   otter, fred-loader and census-loader. The other project pages link
    to the profile rather than a repository, because the farm app and the school
    budget app hold real operational data and are very likely private. Only swap
    those if the repository is genuinely public.
