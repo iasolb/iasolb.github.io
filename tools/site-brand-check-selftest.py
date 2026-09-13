@@ -18,7 +18,11 @@ import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GATE = ("python3", "tools/site-brand-check.py")
+# sys.executable, NOT a bare "python3" (fixed 2026-09-13). There is no `python3`
+# on Windows, so this self-test exited 9009 before running a single case and
+# reported the baseline as "already red", which reads like a real finding. The
+# interpreter running this script is by definition one that exists.
+GATE = (sys.executable, "tools/site-brand-check.py")
 
 
 def run():
@@ -28,11 +32,24 @@ def run():
 
 
 def edit_text(rel, fn):
+    """Apply one mutation, returning the restore. Bytes are kept verbatim so the
+    restore is exact.
+
+    LINE ENDINGS ARE NORMALISED BEFORE THE MUTATION RUNS (2026-09-13). Every
+    multi-line pattern in the case list below is written with `\\n`, and git
+    checks these files out with CRLF on Windows, so those patterns matched
+    nothing and `edit_text` raised "mutation changed nothing" mid-run. That is
+    the same species as the bare `python3` above: this self-test was authored on
+    a machine with LF endings and had never gone green on this one. The restore
+    still writes the ORIGINAL bytes, so normalising here cannot leave the
+    working tree re-ended.
+    """
     path = ROOT / rel
     original = path.read_bytes()
-    mutated = fn(original.decode())
-    assert mutated.encode() != original, f"mutation for {rel} changed nothing"
-    path.write_text(mutated)
+    mutated = fn(original.decode().replace("\r\n", "\n"))
+    assert mutated.encode() != original.replace(b"\r\n", b"\n"), (
+        f"mutation for {rel} changed nothing")
+    path.write_text(mutated, newline="\n")
     return lambda: path.write_bytes(original)
 
 
@@ -114,12 +131,12 @@ def add_page(rel):
 
 CASES = [
     # assertion 1
-    ("1  light accent reuses the dark orange", "1",
+    ("1  light accent reuses the dark lilac", "1",
      lambda: edit_text("assets/css/tokens.css",
-                       lambda t: t.replace("--accent:    #bd4f00;", "--accent:    #ff7a1a;"))),
+                       lambda t: t.replace("--accent:    #6d28c4;", "--accent:    #c4a7f5;"))),
     ("1  a token is missing", "1",
      lambda: edit_text("assets/css/tokens.css",
-                       lambda t: t.replace("  --on-brand:  #100f0d;", "", 1))),
+                       lambda t: t.replace("  --on-brand:  #121018;", "", 1))),
     ("1  no prefers-color-scheme block", "1",
      lambda: edit_text("assets/css/tokens.css",
                        lambda t: t.replace("@media (prefers-color-scheme: light)",
@@ -170,7 +187,7 @@ CASES = [
     ("4  a hex colour appears in an inline style", "4",
      lambda: edit_text("index.html",
                        lambda t: t.replace('style="width:22px;flex:0 0 22px"',
-                                           'style="width:22px;flex:0 0 22px;color:#ff7a1a"'))),
+                                           'style="width:22px;flex:0 0 22px;color:#c4a7f5"'))),
 
     # assertion 4b
     ("4b co-op becomes internship", "4b",

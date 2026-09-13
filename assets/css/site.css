@@ -33,11 +33,21 @@
   --violet: #a371f7;
   --green: #3fb950;
 
-  /* type */
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica,
-    Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+  /* type. BOTH role names now resolve to Comic Neue (Ian, 2026-09-13: "more
+     comic sans please - the little bubbles and descriptions etc"), so the
+     kickers, role lines, dates, counts and status chips carry it too rather
+     than only the headings and body.
+
+     This SUPERSEDES the 2026-08-13 "monospace is for metadata only" rule, which
+     existed to stop metadata competing with a serif body. With one face doing
+     both jobs there is nothing to separate, and he asked for the opposite.
+
+     --code is the one survivor and is a REAL monospace, because the `code`
+     rule below sets actual code where character alignment and an unambiguous
+     0/O and 1/l are the whole point. */
+  --sans: var(--font-body);
+  --mono: var(--font-body);
+  --code: var(--font-mono);
 
   /* rhythm. --measure and --page are names tokens.css also uses, for the text
      measure and the page COLOUR, so the two layout values are inlined at their
@@ -75,7 +85,7 @@ body {
   color: var(--fg);
   font-family: var(--sans);
   font-size: 1.0625rem;
-  line-height: 1.65;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -140,7 +150,7 @@ main {
   align-items: center;
   gap: 0.6rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   color: var(--fg);
   text-decoration: none;
   font-size: 1rem;
@@ -197,7 +207,7 @@ main {
 .eyebrow {
   font-family: var(--mono);
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--fg-subtle);
   margin: 0 0 1.25rem;
@@ -205,8 +215,8 @@ main {
 
 .hero h1 {
   font-size: clamp(2.25rem, 6vw, 3.75rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  line-height: 1.22;
+  letter-spacing: -0.005em;
   margin: 0 0 1.25rem;
   font-weight: 650;
   max-width: 24ch;
@@ -219,10 +229,24 @@ main {
   max-width: none;
 }
 
+/* The masthead had NO bottom margin, so the tagline butted straight onto the
+ * role line. It went unnoticed while the portrait was 78px tall and became
+ * obvious at 130px. Every other block in this hero already sets its own bottom
+ * margin; this one was the gap in the rhythm. */
+.hero .masthead {
+  margin: 0 0 1.75rem;
+}
+
+/* Same for the availability pill: the tagline above it sets 1.75rem, so without
+ * this the lede underneath sat tight against the fill. */
+.hero .brand-fill {
+  margin: 0 0 1.75rem;
+}
+
 .hero .tagline {
   font-size: clamp(1.375rem, 3.2vw, 1.875rem);
   line-height: 1.35;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   font-weight: 450;
   color: var(--fg);
   margin: 0 0 1.75rem;
@@ -260,7 +284,7 @@ main {
   font-family: var(--mono);
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--fg-subtle);
   margin: 0;
@@ -284,12 +308,12 @@ h1,
 h2,
 h3,
 h4 {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.005em;
 }
 
 .page-title {
   font-size: clamp(1.875rem, 5vw, 2.75rem);
-  line-height: 1.12;
+  line-height: 1.25;
   margin: 0 0 1rem;
   font-weight: 650;
 }
@@ -341,7 +365,7 @@ li::marker {
 }
 
 code {
-  font-family: var(--mono);
+  font-family: var(--code);
   font-size: 0.875em;
   background: var(--surface);
   border: 1px solid var(--border-muted);
@@ -391,7 +415,7 @@ a.card:hover {
 .card-kicker {
   font-family: var(--mono);
   font-size: 0.7rem;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   color: var(--fg-subtle);
 }
@@ -400,7 +424,7 @@ a.card:hover {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
 }
 
 a.card:hover h3 {
@@ -522,7 +546,7 @@ a.card:hover h3 {
 .meta-grid dt {
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   color: var(--fg-subtle);
   margin-bottom: 0.4rem;
@@ -677,7 +701,7 @@ a.card:hover h3 {
 .contact-list .label {
   font-family: var(--mono);
   font-size: 0.7rem;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   color: var(--fg-subtle);
 }

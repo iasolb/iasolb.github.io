@@ -38,14 +38,22 @@ PORTRAIT = "assets/img/ian-byline.jpg"
 
 AVAILABILITY = "Open for the Fall 2027 co-op cycle"
 
-# Every text addition this order permits, per page. Anything else appearing in a
-# page's prose is a copy change and fails assertion 5.
-ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {
-    LANDING: [
-        (AVAILABILITY, "step 5, the availability line"),
-        ("Data science & economics", "step 4, the masthead role line"),
-    ],
-}
+# Every text addition the CURRENT pass permits, per page. Anything else
+# appearing in a page's prose is a copy change and fails assertion 5.
+#
+# EMPTIED 2026-09-13, AND THE ENTRY THAT WAS HERE COULD NEVER PASS AGAIN. It
+# listed the availability line and the masthead role line as additions the
+# 2026-08-27 brand order was making. That order MERGED, so those words are in
+# `main`, which is what assertion 5 diffs against: `base_words` already counted
+# them and `expected_extra` added them a second time, making want_count exactly
+# ten too high on every run forever. A gate that cannot pass teaches everyone to
+# ignore it.
+#
+# The protection is not lost. Assertion 4b independently requires the
+# availability line to appear exactly once and bans the wrong wording, and an
+# EMPTY list here is the stronger standing rule: base copy must survive
+# unchanged unless a pass deliberately declares what it is adding.
+ALLOWED_ADDITIONS: dict[str, list[tuple[str, str]]] = {}
 
 # Assertion 1: the nine tokens, and the three hex values the order pins.
 REQUIRED_TOKENS = (
@@ -61,11 +69,17 @@ REQUIRED_TOKENS = (
 )
 DARK_SELECTOR = ':root, [data-theme="dark"]'
 LIGHT_SELECTOR = '[data-theme="light"]'
+# REPALETTED 2026-09-13: lilac replaced the orange settled 2026-08-27. The
+# SHAPE of the rule is unchanged and is the part that matters: the brand colour
+# is identical in both themes, and light mode carries a SEPARATE darkened accent
+# because a brand light enough to read as lilac can never be text on paper
+# (#c4a7f5 is 1.94:1 there). Assertion 1 below still fails a build that reuses
+# the dark accent on light, which is the bug this gate exists for.
 PINNED = (
-    (DARK_SELECTOR, "--brand", "#ff7a1a"),
-    (DARK_SELECTOR, "--accent", "#ff7a1a"),
-    (LIGHT_SELECTOR, "--brand", "#ff7a1a"),
-    (LIGHT_SELECTOR, "--accent", "#bd4f00"),
+    (DARK_SELECTOR, "--brand", "#c4a7f5"),
+    (DARK_SELECTOR, "--accent", "#c4a7f5"),
+    (LIGHT_SELECTOR, "--brand", "#c4a7f5"),
+    (LIGHT_SELECTOR, "--accent", "#6d28c4"),
 )
 
 HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
@@ -206,7 +220,16 @@ def css_blocks(css: str) -> dict[str, str]:
     """
     css = re.sub(r"/\*.*?\*/", " ", css, flags=re.S)
     out: dict[str, str] = {}
-    for m in re.finditer(r"([^{}@]+)\{([^{}]*)\}", css):
+    # `;` TERMINATES A SELECTOR CANDIDATE, and leaving it out broke this gate
+    # (2026-09-13). The class excluded `@` so an at-rule could not be read as a
+    # selector, but a STATEMENT at-rule like `@import url(...);` ends in a
+    # semicolon rather than a block, so everything from after its `@` through to
+    # the next `{` was swallowed into one selector string and the real
+    # `:root, [data-theme="dark"]` block stopped being found at all. The gate
+    # then reported all nine tokens missing, which is a loud failure for a
+    # stylesheet that was completely valid. `@media` never exposed this because
+    # it sits after every block this reads.
+    for m in re.finditer(r"([^{}@;]+)\{([^{}]*)\}", css):
         selector = " ".join(m.group(1).split())
         out.setdefault(selector, m.group(2))
     return out

@@ -1,4 +1,10 @@
-/* iansolberg.us design tokens, settled with Ian 2026-08-27.
+/* Comic Neue, the open-source cut of Comic Sans. See the --font-display note
+ * below for why the real Comic Sans cannot be named on its own. Loaded here
+ * rather than as a <link> in twelve page heads so the font is one edit. */
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap");
+
+/* iansolberg.us design tokens, settled with Ian 2026-08-27,
+ * REPALETTED to lilac and Comic Neue 2026-09-13.
  *
  * Load this FIRST, before any other stylesheet.
  * The decision record, including every direction that was rejected, lives in
@@ -18,67 +24,92 @@
  * a visitor with no stated preference still gets the design as approved.
  */
 :root, [data-theme="dark"] {
-  /* Surface and ink. Warm near-black, not the cooler GitHub grey. */
-  --page:      #100f0d;
-  --heading:   #f7f3ea;  /* 17.30:1 */
-  --body:      #aaa294;  /*  7.58:1 */
-  --meta:      #817a6d;  /*  4.50:1, the tightest in the set */
-  --kicker:    #8a8375;  /*  5.09:1 */
-  --rule:      #29261f;
+  /* Surface and ink. Near-black with a VIOLET cast, not the previous warm one:
+   * lilac sitting on a warm brown-black reads muddy, and the whole point of the
+   * palette is that the accent looks intentional. */
+  --page:      #121018;
+  --heading:   #f5f2fa;  /* 17.04:1 */
+  --body:      #b0a8c2;  /*  8.29:1 */
+  --meta:      #8b839c;  /*  5.23:1, the tightest in the set */
+  --kicker:    #948ca6;  /*  5.89:1 */
+  --rule:      #27232f;
 
-  /* ORANGE IS THE BRAND (Ian, 2026-08-27). On dark it works everywhere. */
-  --brand:     #ff7a1a;  /* the identity colour, unchanged in both themes */
-  --accent:    #ff7a1a;  /*  7.34:1 on dark, safe as text here */
-  --on-brand:  #100f0d;  /*  7.34:1 against a --brand fill */
+  /* LILAC IS THE BRAND (Ian, 2026-09-13: "a softer purple / lilac colour
+   * scheme"). This SUPERSEDES the orange #ff7a1a settled 2026-08-27, which is
+   * dead everywhere including memory/brand.md. On dark it works everywhere,
+   * exactly as the orange did. */
+  --brand:     #c4a7f5;  /* the identity colour, unchanged in both themes */
+  --accent:    #c4a7f5;  /*  9.16:1 on dark, safe as text here */
+  --on-brand:  #121018;  /*  9.16:1 against a --brand fill */
 }
 
-/* Light: warm paper, mirroring the dark rather than going sterile white. */
+/* Light: cool paper with the same violet cast, mirroring the dark rather than
+ * going sterile white. */
 [data-theme="light"] {
-  --page:      #faf6ee;
-  --heading:   #17150f;  /* 16.93:1 */
-  --body:      #4a4438;  /*  8.96:1 */
-  --meta:      #6e6759;  /*  5.20:1 */
-  --kicker:    #6e6759;  /*  5.20:1 */
-  --rule:      #ddd4c2;
+  --page:      #faf7fb;
+  --heading:   #171320;  /* 17.18:1 */
+  --body:      #4b4358;  /*  8.81:1 */
+  --meta:      #6d6479;  /*  5.27:1 */
+  --kicker:    #6d6479;  /*  5.27:1 */
+  --rule:      #e2dae9;
 
-  /* THE BRAND ORANGE IS UNCHANGED, but it CANNOT be text on paper: #ff7a1a is
-   * 2.42:1 there, and no bright orange tested cleared even the 3:1 graphic bar.
-   * So on light, orange is a FILL and --accent is a darkened same-hue variant
-   * for text and links. Reusing the dark accent on paper is the single most
-   * common light-mode bug; this is what avoiding it costs. */
-  --brand:     #ff7a1a;  /* fills, illustration, large shapes only */
-  --accent:    #bd4f00;  /*  4.55:1, text and links */
-  --on-brand:  #17150f;  /*  7.00:1 against a --brand fill */
+  /* THE BRAND LILAC IS UNCHANGED, but it CANNOT be text on paper: #c4a7f5 is
+   * 1.94:1 there, which is the same trap the orange had at 2.42:1. A lilac
+   * light enough to read as lilac can never clear 4.5:1 on paper. So on light
+   * it is a FILL and --accent is a darkened same-hue variant for text and
+   * links. Reusing the dark accent on paper is the single most common
+   * light-mode bug; this is what avoiding it costs. */
+  --brand:     #c4a7f5;  /* fills, illustration, large shapes only */
+  --accent:    #6d28c4;  /*  7.18:1, text and links */
+  --on-brand:  #171320;  /*  8.86:1 against a --brand fill */
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --page:      #faf6ee;
-    --heading:   #17150f;
-    --body:      #4a4438;
-    --meta:      #6e6759;
-    --kicker:    #6e6759;
-    --rule:      #e6dccb;
-    --brand:     #ff7a1a;
-    --accent:    #bd4f00;
-    --on-brand:  #17150f;
+    --page:      #faf7fb;
+    --heading:   #171320;
+    --body:      #4b4358;
+    --meta:      #6d6479;
+    --kicker:    #6d6479;
+    --rule:      #e8e0ee;
+    --brand:     #c4a7f5;
+    --accent:    #6d28c4;
+    --on-brand:  #171320;
   }
 }
 
 :root {
-  /* Type. Serif display AND serif body; the real faces are still to pick, so
-   * these stacks are deliberately system-only and will not shift layout when
-   * a webfont is added on top. */
-  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
-  --font-body:    Georgia, "Iowan Old Style", "Times New Roman", serif;
+  /* Type. COMIC NEUE for display and body (Ian, 2026-09-13: he likes Comic Sans
+   * and has weighed the professionalism question himself). This SUPERSEDES the
+   * serif stacks settled 2026-08-13.
+   *
+   * WHY COMIC NEUE AND NOT "Comic Sans MS": Comic Sans is a SYSTEM font. It
+   * ships with Windows and macOS and is absent from most Linux and Android
+   * installs, so naming it alone silently serves a fallback to a large slice of
+   * visitors and the author never sees it. Comic Neue is the open-source cut of
+   * the same shape, loaded as a webfont, so every visitor gets the same page.
+   * Comic Sans MS stays in the stack AFTER it: anyone who has the real thing
+   * locally renders before the webfont arrives, which removes the flash.
+   *
+   * The mono stack is unchanged and still metadata-only. */
+  --font-display: "Comic Neue", "Comic Sans MS", "Chalkboard SE", cursive;
+  --font-body:    "Comic Neue", "Comic Sans MS", "Chalkboard SE", cursive;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Headline metrics measured on a 390px phone frame, which is the width the
-   * design was approved at. */
-  --headline-size:    1.92rem;
-  --headline-leading: 1.16;
-  --headline-tracking: -0.02em;
-  --measure:          24ch;
+   * design was approved at.
+   *
+   * RETUNED FOR COMIC NEUE 2026-09-13. The old values were measured against
+   * Georgia and carried straight over, which is what made the spacing read
+   * uneven: this face has a much larger x-height and wider default sidebearings,
+   * so -0.02em tracking closed the counters up while a 1.16 leading left the
+   * tall ascenders crowding the line above. Tracking is now near-neutral and
+   * the leading is looser; the measure widens because the same character count
+   * occupies more room in this face. */
+  --headline-size:    1.95rem;
+  --headline-leading: 1.28;
+  --headline-tracking: -0.005em;
+  --measure:          28ch;
 }
 
 body {
@@ -86,7 +117,9 @@ body {
   background: var(--page);
   color: var(--body);
   font-family: var(--font-body);
-  line-height: 1.62;
+  /* 1.55, down from the 1.62 tuned for Georgia: Comic Neue's larger x-height
+   * fills more of the line box, so the same number reads airier. */
+  line-height: 1.55;
 }
 
 /* The masthead: portrait beside the name, role line beneath.
@@ -98,9 +131,13 @@ body {
  * border-radius: 50% here. 4:5 is the byline shape; the corner radius is
  * small enough to read as a rectangle rather than rounding the silhouette.
  * Do not reintroduce a round or pill radius on this image. */
-.masthead { display: flex; align-items: center; gap: 15px; }
+.masthead { display: flex; align-items: center; gap: 18px; }
+/* 104x130, up from 62x78 (Ian, 2026-09-13: "make my photo larger please").
+ * Still 4:5, and still well inside the source file's 320x400, so it scales up
+ * without softening. The corner radius does NOT grow with it: assertion 1b
+ * fails a round or pill silhouette, which is the thing he ruled out. */
 .masthead img {
-  width: 62px; height: 78px; flex: 0 0 62px;
+  width: 104px; height: 130px; flex: 0 0 104px;
   border-radius: 4px; object-fit: cover;
   border: 1px solid var(--rule);
 }
@@ -109,10 +146,13 @@ body {
   font-size: 1.28rem; line-height: 1.15; letter-spacing: -0.015em;
   color: var(--heading);
 }
+/* Comic Neue here too, not the mono (Ian, 2026-09-13). Tracking eased from
+ * 0.13em to 0.08em: this face is already wide, and uppercase letterspacing
+ * tuned for a condensed monospace reads as a gap at this size. */
 .masthead .role {
-  font-family: var(--font-mono); font-size: 0.63rem;
-  letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--kicker); margin-top: 5px;
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--kicker); margin-top: 6px;
 }
 
 /* The tagline IS the headline. There is no separate tagline line: that was the
@@ -128,23 +168,29 @@ body {
 }
 .headline em { font-style: italic; color: var(--accent); }
 
-/* Monospace is for metadata only: kickers, role lines, dates, counts. Never
- * for body copy or headings. */
+/* Kickers, dates and counts. THESE ARE COMIC NEUE NOW (Ian, 2026-09-13: "more
+ * comic sans please - the little bubbles and descriptions etc"), which
+ * supersedes the 2026-08-13 monospace-for-metadata rule. Sizes are up and
+ * tracking is down from the monospace settings for the reason in .masthead
+ * .role above: this face is wider, so the old values left visible gaps. */
 .kicker {
-  font-family: var(--font-mono); font-size: 0.63rem;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--kicker);
 }
 .meta {
-  font-family: var(--font-mono); font-size: 0.68rem;
+  font-family: var(--font-display); font-size: 0.78rem;
   color: var(--meta);
 }
 
 .rule { border: 0; border-top: 1px solid var(--rule); }
 
+/* 700 not 400: Comic Neue's regular weight is noticeably lighter than Georgia's
+ * and headings stopped separating from body copy at the same size. Tracking is
+ * neutral for the reason in the headline metrics above. */
 h1, h2, h3, h4 {
-  font-family: var(--font-display); font-weight: 400;
-  color: var(--heading); letter-spacing: -0.012em;
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--heading); letter-spacing: 0;
 }
 
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
