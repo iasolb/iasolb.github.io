@@ -420,6 +420,17 @@ a.card:hover {
   color: var(--fg-subtle);
 }
 
+/* A kicker that is a COMMAND, not a label. Shown exactly as it is typed: real
+   monospace, no uppercasing, no tracking. `PIP INSTALL OTTER` is not a thing
+   anyone can run, and a install line that has to be mentally lower-cased before
+   use is worse than no install line. */
+.card-kicker--cmd {
+  font-family: var(--code);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
 .card h3 {
   margin: 0;
   font-size: 1.125rem;

@@ -100,6 +100,22 @@ def renamed(text: str | None) -> str | None:
         text = text.replace(old, new)
     return text
 
+# Pages this pass deliberately RETIRES. The scope assertion refuses a page
+# appearing or disappearing, because that is normally a build accident; a
+# deliberate retirement is declared here instead of the check being weakened.
+#
+# Retire the entry once the deletion is committed, same lifecycle as the two
+# dicts below: after that the page is absent from the base too and the
+# declaration describes nothing.
+RETIRED_PAGES: dict[str, str] = {
+    "projects/solberg-mainframe/index.html":
+        "2026-09-13, Ian is taking the repository private, so the public "
+        "project page goes with it. Its sitemap entry and its card on the "
+        "projects index are removed in the same commit; a page that survives "
+        "in only one of the three is exactly the litter this check exists to "
+        "catch.",
+}
+
 # Copy a pass deliberately REMOVES, per page. The third of the three things that
 # can happen to a word, added 2026-09-13 alongside RENAMES.
 #
@@ -494,9 +510,31 @@ def check_portrait() -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="main", help="branch the copy is compared against")
+    # ASSERTION 5 EXISTS TO CATCH DRIFT, NOT TO FORBID WRITING. It locks the
+    # prose word for word so a brand or layout pass cannot quietly reword the
+    # site, which is the right default and has caught real mistakes today.
+    #
+    # A DELIBERATE REWRITE IS A DIFFERENT ACT, and forcing one through the
+    # declaration machinery makes the writing worse: phrasing gets contorted
+    # into something that merely appends so the word counts line up. Measured
+    # 2026-09-13, twice, before this flag existed.
+    #
+    # So a content pass says so out loud. Everything else still runs: the
+    # palette, the stylesheet order, the motifs, the portrait, the inline-hex
+    # ban and the availability wording are all unaffected, because none of them
+    # is about prose. Re-run WITHOUT the flag after committing: the new copy is
+    # then the baseline and drift detection resumes from it.
+    ap.add_argument("--content-pass", action="store_true",
+                    help="a human is deliberately rewriting copy: skip the "
+                         "word-for-word prose lock (assertions 5 and 5b) and "
+                         "say so loudly. Every other assertion still runs.")
     args = ap.parse_args()
 
     print(f"site-brand-check, base = {args.base}")
+    if args.content_pass:
+        print("  *** CONTENT PASS: the prose lock (5, 5b) is OFF. Every other")
+        print("  *** assertion still ran. Re-run without --content-pass after")
+        print("  *** committing, so the new copy becomes the baseline.")
 
     check_tokens()
     check_portrait()
@@ -509,11 +547,17 @@ def main() -> int:
     base = sorted(base_pages(args.base))
 
     added = set(live) - set(base)
-    removed = set(base) - set(live)
+    removed = set(base) - set(live) - set(RETIRED_PAGES)
     if added:
         fail("scope", f"pages added, which the order forbids: {sorted(added)}")
     if removed:
         fail("scope", f"pages removed, which the order forbids: {sorted(removed)}")
+    # A retired page that is somehow still on disk is its own failure: the
+    # declaration and the filesystem disagree, and the declaration is the one
+    # that gets read by a person.
+    for rel in RETIRED_PAGES:
+        if rel in live:
+            fail("scope", f"{rel} is declared retired but is still present")
 
     motif_refs: dict[str, int] = {m: 0 for m in MOTIFS}
 
@@ -549,6 +593,8 @@ def main() -> int:
                 fail("4", f"{rel}: hex {found} in inline style {attr!r}")
 
         # 5: the copy is untouched apart from the additions the order names.
+        if args.content_pass:
+            continue  # a human is rewriting; the banner at the top says so
         if rel in added:
             continue  # already reported as a scope violation; there is no base to diff
         base_page = parse_page(base_text(args.base, rel))

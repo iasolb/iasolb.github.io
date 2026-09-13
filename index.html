@@ -44,60 +44,85 @@
 <div class="role">Software Engineer @ Tall Poppies LLC</div>
 </div>
 </div>
-<p class="tagline">Helping people interact with the data they create, in the way they want to.</p>
+<p class="tagline">Helping people interact with the data they create, in the ways they want to.</p>
 <div class="brand-fill" style="display:flex;align-items:center;gap:11px">
 <img src="/assets/img/botanical/stem.svg" alt="" aria-hidden="true"
      style="width:22px;flex:0 0 22px">
 <span class="kicker" style="color:inherit;letter-spacing:.04em">Open for the Fall 2027 co-op cycle</span>
 </div>
-<p class="lede">Data science and economics at Northeastern, class of 2027. Marketing analyst co-op at Wayfair, and an undergraduate researcher in the Loth Lab where I built the BRAIN project's dashboard over patient morphometric data. I also build database migrations, web applications, and Python libraries that wrap public data APIs.</p>
+<p class="lede">Data science and economics at Northeastern, class of 2028, and a marketing analyst co-op at Wayfair. I build the layer between a database and the person who needs to read it: three Python libraries on PyPI, a budget app running at two schools, a field app on a working farm, a dashboard for a Chiari malformation lab. Open to contract work.</p>
 <div class="contact-row">
 <a class="btn btn-primary" href="/assets/resume/ian-solberg-resume.pdf">Resume (PDF)</a>
 <a class="btn" href="/projects/">Projects</a>
 </div>
 </section>
-<section class="section wrap" aria-labelledby="work-heading">
+<section class="section wrap" aria-labelledby="packages-heading">
 <div class="section-label">
-<h2 id="work-heading">Selected work</h2>
+<h2 id="packages-heading">On PyPI</h2>
+<span class="rule"></span>
+<a href="https://pypi.org/user/iasolb/" rel="noopener">All packages</a>
+</div>
+<div class="prose"><p>Three libraries that work as one stack. The loaders fetch and name public data; otter does the econometrics on it.</p></div>
+<div class="card-grid">
+<a class="card" href="/projects/research-framework/">
+<span class="card-kicker card-kicker--cmd">pip install otter</span>
+<h3>otter</h3>
+<p>Econometrics in Python: regressions, diagnostics, forecasting, and result tables ready for a paper. Simulation is one part, not the point.</p>
+<div class="card-foot"><ul class="tags"><li>Econometrics</li><li>Forecasting</li><li>statsmodels</li></ul></div>
+</a>
+<a class="card" href="/projects/data-loaders/">
+<span class="card-kicker card-kicker--cmd">pip install fred-loader</span>
+<h3>fred-loader</h3>
+<p>Readable names instead of FRED series codes. Batching and rate limits handled for you.</p>
+<div class="card-foot"><ul class="tags"><li>pandas</li><li>API design</li></ul></div>
+</a>
+<a class="card" href="/projects/data-loaders/">
+<span class="card-kicker card-kicker--cmd">pip install census-loader</span>
+<h3>census-loader</h3>
+<p>Readable names instead of Census endpoints and variable codes. Same shape as its sibling, on purpose.</p>
+<div class="card-foot"><ul class="tags"><li>pandas</li><li>API design</li></ul></div>
+</a>
+</div>
+</section>
+<section class="section wrap" aria-labelledby="paid-heading">
+<div class="section-label">
+<h2 id="paid-heading">Paid work</h2>
+<span class="rule"></span>
+</div>
+<div class="prose"><p>Software people depend on to do their jobs. Both are in production.</p></div>
+<div class="card-grid">
+<a class="card" href="/projects/financial-edge-connector/">
+<span class="card-kicker">Tall Poppies LLC &middot; Two schools</span>
+<h3>Financial Edge Connector</h3>
+<p>Faculty read their own budgets, pulled from an accounting platform they were never given access to. Live at Vermont Academy and Cardigan Mountain School.</p>
+<div class="card-foot"><ul class="tags"><li>Flask</li><li>OAuth</li><li>Blackbaud Sky</li></ul></div>
+</a>
+<a class="card" href="/projects/edgewater-farm/">
+<span class="card-kicker">Contract &middot; Working farm</span>
+<h3>Edgewater Farm database and field app</h3>
+<p>An Access database moved to MySQL, and a phone-first app for logging planting, harvest and sales standing in the field.</p>
+<div class="card-foot"><ul class="tags"><li>MySQL</li><li>FastAPI</li><li>HTMX</li></ul></div>
+</a>
+</div>
+</section>
+<section class="section wrap" aria-labelledby="research-heading">
+<div class="section-label">
+<h2 id="research-heading">Research</h2>
 <span class="rule"></span>
 <a href="/projects/">All projects</a>
 </div>
 <div class="card-grid">
+<a class="card" href="/projects/brain-chiari-dashboard/">
+<span class="card-kicker">Loth Lab &middot; Northeastern</span>
+<h3>Chiari morphometrics dashboard</h3>
+<p>Patient morphometrics the research team can filter and plot themselves, instead of asking someone to run it. <span class="meta">Live on Hugging Face.</span></p>
+<div class="card-foot"><ul class="tags"><li>HoloViz Panel</li><li>Docker</li></ul></div>
+</a>
 <a class="card" href="/projects/debt-regime-inflation/">
 <span class="card-kicker">Published &middot; Applied econometrics</span>
 <h3>The 100% threshold</h3>
-<p>Government debt above 100% of GDP flips the sign on money supply's effect on prices. Weekly FRED data, 1990 to 2026.</p>
-<div class="card-foot"><ul class="tags"><li>Econometrics</li><li>statsmodels</li><li>Monte Carlo</li></ul></div>
-</a>
-<a class="card" href="/projects/brain-chiari-dashboard/">
-<span class="card-kicker">Research &middot; Loth Lab</span>
-<h3>Chiari morphometrics dashboard</h3>
-<p>Interactive dashboard over patient morphometrics for the BRAIN project, deployed so the research team can filter and plot the data directly.</p>
-<div class="card-foot"><ul class="tags"><li>Python</li><li>HoloViz Panel</li><li>Docker</li></ul></div>
-</a>
-<a class="card" href="/projects/edgewater-farm/">
-<span class="card-kicker">Product &middot; Working farm</span>
-<h3>Edgewater Farm database and field app</h3>
-<p>A Microsoft Access database migrated to MySQL, with a mobile-first progressive web app for logging planting, harvest, and sales from the field.</p>
-<div class="card-foot"><ul class="tags"><li>MySQL</li><li>FastAPI</li><li>SQLAlchemy</li><li>HTMX</li></ul></div>
-</a>
-<a class="card" href="/projects/data-loaders/">
-<span class="card-kicker">Open source</span>
-<h3>FRED and Census loaders</h3>
-<p>Two Python libraries providing a readable naming layer over federal data APIs, with discovery helpers and rate-limit-aware batching.</p>
-<div class="card-foot"><ul class="tags"><li>Python</li><li>API design</li><li>pandas</li></ul></div>
-</a>
-<a class="card" href="/projects/research-framework/">
-<span class="card-kicker">Research tooling</span>
-<h3>otter</h3>
-<p>A Monte Carlo and statistical modeling framework built on those loaders.</p>
-<div class="card-foot"><ul class="tags"><li>Monte Carlo</li><li>NumPy</li><li>Economics</li></ul></div>
-</a>
-<a class="card" href="/projects/financial-edge-connector/">
-<span class="card-kicker">Client work</span>
-<h3>Financial Edge Connector</h3>
-<p>A Flask application giving an independent school's faculty a Google-authenticated view of their budget data through the Blackbaud Sky API.</p>
-<div class="card-foot"><ul class="tags"><li>Flask</li><li>OAuth</li><li>REST</li></ul></div>
+<p>Past 100% of GDP, government debt flips the sign on money supply's effect on prices. 1,891 weekly FRED observations, 1990 to 2026.</p>
+<div class="card-foot"><ul class="tags"><li>Econometrics</li><li>Monte Carlo</li></ul></div>
 </a>
 </div>
 </section>
@@ -107,10 +132,10 @@
 <span class="rule"></span>
 </div>
 <ul class="now-list">
-<li><span class="when">Co-op</span><span class="what"><strong>Marketing Analyst, Wayfair</strong> Data validation and analysis in BigQuery. Returning for a second term in fall 2026.</span></li>
-<li><span class="when">Research</span><span class="what"><strong>Loth Lab, Northeastern University</strong> Undergraduate researcher on the BRAIN project, studying Chiari malformation.</span></li>
-<li><span class="when">Building</span><span class="what"><strong>Edgewater Farm database and field app</strong> An Access to MySQL migration and a web app for farm operations, in active development.</span></li>
-<li><span class="when">Interests</span><span class="what"><strong>Distributional macroeconomics</strong> How wealth concentration affects consumption, investment, and monetary policy transmission. API development and automation. <a href="/writing/">More on this</a>.</span></li>
+<li><span class="when">Co-op</span><span class="what"><strong>Marketing Analyst, Wayfair</strong> Mostly AI development and n8n automation: internal tooling that just works, which is the team's whole brief. Validation and analysis in BigQuery alongside it. Back for a second term in fall 2026.</span></li>
+<li><span class="when">Research</span><span class="what"><strong>Loth Lab, Northeastern</strong> Undergraduate researcher on the BRAIN project, studying Chiari malformation.</span></li>
+<li><span class="when">Company</span><span class="what"><strong>Tall Poppies LLC</strong> Software engineer. The Financial Edge Connector is its product, running at two schools.</span></li>
+<li><span class="when">Reading</span><span class="what"><strong>Distributional macroeconomics</strong> How wealth concentration moves consumption, investment and monetary policy. <a href="/writing/">More on this</a>.</span></li>
 </ul>
 </section>
 <section class="section wrap" aria-labelledby="contact-heading">
