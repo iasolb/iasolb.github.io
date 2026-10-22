@@ -75,16 +75,22 @@ def corrupt(rel):
 PORTRAIT = "assets/img/ian-byline.jpg"
 
 
+def repatch_file(rel, fn):
+    """Swap a binary file for a variant built from its own bytes, returning the
+    restore."""
+    path = ROOT / rel
+    original = path.read_bytes()
+    path.write_bytes(fn(original))
+    return lambda: path.write_bytes(original)
+
+
 def repatch_portrait(fn):
     """Swap the portrait for a defective variant built from its own bytes.
 
     Built rather than shipped, so the selftest stays stdlib-only and carries no
     fixture images of its own.
     """
-    path = ROOT / PORTRAIT
-    original = path.read_bytes()
-    path.write_bytes(fn(original))
-    return lambda: path.write_bytes(original)
+    return repatch_file(PORTRAIT, fn)
 
 
 def _sof_offset(raw):
@@ -154,18 +160,18 @@ CASES = [
                        lambda s: s.replace("border-radius: 4px; object-fit: cover;",
                                            "border-radius: 40px; object-fit: cover;"))),
 
-    # assertion 2
+    # assertion 2. The links carry a cache stamp since 2026-10-22, so the
+    # patterns allow one rather than naming today's hash.
     ("2  stylesheet links reordered", "2",
      lambda: edit_text("about/index.html",
-                       lambda t: t.replace(
-                           '<link rel="stylesheet" href="/assets/css/tokens.css" />\n'
-                           '<link rel="stylesheet" href="/assets/css/site.css" />',
-                           '<link rel="stylesheet" href="/assets/css/site.css" />\n'
-                           '<link rel="stylesheet" href="/assets/css/tokens.css" />'))),
+                       lambda t: re.sub(
+                           r'(<link rel="stylesheet" href="/assets/css/tokens\.css[^"]*" />)\n'
+                           r'(<link rel="stylesheet" href="/assets/css/site\.css[^"]*" />)',
+                           r"\2\n\1", t, count=1))),
     ("2  tokens.css link dropped from a page", "2",
      lambda: edit_text("writing/index.html",
                        lambda t: re.sub(
-                           r'[ \t]*<link rel="stylesheet" href="/assets/css/tokens\.css" />\n',
+                           r'[ \t]*<link rel="stylesheet" href="/assets/css/tokens\.css[^"]*" />\n',
                            "", t, count=1))),
 
     # assertion 3
@@ -256,6 +262,18 @@ CASES = [
      lambda: repatch_portrait(lambda raw: raw + b"\x00" * 400_000)),
     ("6  the portrait is upright only via EXIF", "6",
      lambda: repatch_portrait(with_exif_orientation_6)),
+
+    # assertion 7, the 2026-10-22 defect: site.css changed and the pages kept
+    # pointing browsers at the copy they had cached.
+    ("7  site.css changes without a restamp", "7",
+     lambda: edit_text("assets/css/site.css", lambda t: t + "\n/* edited */\n")),
+    ("7  the resume changes without a restamp", "7",
+     lambda: repatch_file("assets/resume/ian-solberg-resume.pdf",
+                          lambda raw: raw + b"\n%changed\n")),
+    ("7  a page links the stylesheet unstamped", "7",
+     lambda: edit_text("index.html",
+                       lambda t: re.sub(r'(href="/assets/css/site\.css)\?v=[^"]*"',
+                                        r'\1"', t, count=1))),
 
     # scope
     ("sc a page is added", "scope",

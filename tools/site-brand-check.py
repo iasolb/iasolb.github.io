@@ -20,6 +20,7 @@ count alone would see.
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import pathlib
 import re
 import subprocess
@@ -525,8 +526,9 @@ def main() -> int:
     for rel in live:
         page = parse_page((ROOT / rel).read_text())
 
-        # 2: tokens.css ahead of every other stylesheet.
-        sheets = page.head_stylesheets
+        # 2: tokens.css ahead of every other stylesheet. Compared without the
+        # cache stamp, which assertion 7 checks on its own.
+        sheets = [href.split("?", 1)[0] for href in page.head_stylesheets]
         if not sheets:
             fail("2", f"{rel}: no stylesheet in <head>")
         elif sheets[0] != TOKENS_HREF:
@@ -635,6 +637,17 @@ def main() -> int:
     for banned in ("internship", "Summer 2027"):
         if banned.lower() in landing.lower():
             fail("4b", f"{LANDING} contains {banned!r}")
+
+    # 7: every stylesheet and PDF link carries its file's hash, so a changed
+    # file is a new URL no cache holds (2026-10-22: a desktop browser drew the
+    # new homepage with a four-hour-old site.css). Fixed by tools/stamp-assets.py.
+    spec = importlib.util.spec_from_file_location(
+        "stamp_assets", ROOT / "tools" / "stamp-assets.py")
+    stamp_assets = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(stamp_assets)
+    for rel, link, want in stamp_assets.stale(ROOT):
+        fail("7", f"{rel}: {link} is stale, want {want} "
+                  f"(run tools/stamp-assets.py)")
 
     print(f"  pages checked: {len(live)}")
     print(f"  motif references: " + ", ".join(f"{m}={motif_refs[m]}" for m in MOTIFS))

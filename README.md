@@ -103,26 +103,25 @@ instead of, the `A` records:
 For `www`, one `CNAME` record pointing at `<username>.github.io` (the account's
 default Pages domain, with no repository name on the end).
 
+## Changing a stylesheet or the resume
+
+Cloudflare and browsers keep `/assets/*` for four hours, so every link to a
+`.css` or `.pdf` ends `?v=<hash of the file>`. After editing either, run
+`python3 tools/stamp-assets.py`; `tools/site-brand-check.py` fails (assertion 7)
+until you do. On 2026-10-22 a skipped bump drew the new homepage with the old
+stylesheet on a desktop browser.
+
 ## Before publishing
 
-Exactly ONE broken link remains, and it is item 1.
-
-1. **Add the resume PDF. This one is Ian's own** (2026-08-13: "resume just needs
-   Wayfair stuff added but I'll probably do that"), so it is not an outstanding
-   task for a session. The site links to
-   `assets/resume/ian-solberg-resume.pdf` from the header nav, the footer, and
-   two buttons, and that file does not exist yet, so every one of those links
-   404s until he drops it in. See `assets/resume/README.md`. It is the only
-   broken link on the site and the one reason not to publish yet.
-2. **Make a PNG social card.** `assets/social-card.svg` is the design, but link
+1. **Make a PNG social card.** `assets/social-card.svg` is the design, but link
    previews need a raster image at `assets/social-card.png` (1200x630). Every
    page already points at that path. Until the PNG exists, links unfurl without
    an image, which is cosmetic and not a broken page.
-3. **Read the About page in your own voice.** The copy is written from what is
+2. **Read the About page in your own voice.** The copy is written from what is
    on file about you, in a deliberately factual register (Ian, 2026-08-13: no
    catchphrases, "stick my identity only", "should read closer to my resume").
    It should still sound like you rather than a careful description of you.
-4. **Optional: the remaining repository links.** Three are already direct, taken
+3. **Optional: the remaining repository links.** Three are already direct, taken
    from his public GitHub profile on 2026-08-13 where they are pinned and public:
    otter, fred-loader and census-loader. The other project pages link
    to the profile rather than a repository, because the farm app and the school
