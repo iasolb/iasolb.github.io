@@ -266,6 +266,94 @@ main {
   font-weight: 550;
 }
 
+/* ---------- worked for ----------
+ * Ian, 2026-10-22: the top blurb became a row of logos, each on a WHITE tile so
+ * its own colours never clash with the theme, and tapping one opens a short
+ * blurb (role, dates, one resume line). Plain <details name="worked-for">: one
+ * open at a time and no script. The blurb opens below the whole row, as a
+ * panel over what follows, so the tiles never jump. */
+.worked-for {
+  margin: 0 0 2rem;
+}
+
+.worked-for .eyebrow {
+  margin: 0 0 0.75rem;
+}
+
+.logo-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.6rem;
+}
+
+.logo-tile summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 0.6rem;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.logo-tile summary::-webkit-details-marker {
+  display: none;
+}
+
+.logo-tile summary:hover,
+.logo-tile[open] summary {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.logo-tile summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.logo-tile img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo-blurb {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg-muted);
+}
+
+.logo-blurb strong {
+  display: block;
+  color: var(--fg);
+  font-weight: 550;
+}
+
+.logo-blurb .when {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--fg-subtle);
+}
+
+.logo-blurb p {
+  margin: 0.5rem 0 0;
+}
+
 /* ---------- sections ---------- */
 
 .section {
