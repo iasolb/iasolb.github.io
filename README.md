@@ -141,9 +141,11 @@ Exactly ONE broken link remains, and it is item 1.
 - **No Instagram.** He asked for it earlier the same evening and then removed it
   ("remove the instagram link it's out of place"), so all 13 links are gone. Do
   not re-add it, even though his GitHub profile still lists the handle.
-- **The tagline is his own sentence**, given verbatim on 2026-08-13: "helping
-  people interact with the data they create in the way they want to". It replaced
-  a line he disliked. Do not reword it.
+- **The tagline is his own sentence, in the SECOND PERSON since 2026-10-22**
+  (his words: "change the hook blurb to second person: help YOU interact"):
+  "Helping you interact with the data you create, in the ways you want to." Do
+  not reword it. Superseded, dead: the 2026-08-13 third-person version, "helping
+  people interact with the data they create in the way they want to".
 
 One smaller gap: the Dartmouth internship entry is a single line because that is
 all there is on file.
